@@ -2,7 +2,7 @@ import QtQuick 2.4
 import QtQuick.Controls 1.3
 
 ApplicationWindow {
-    title: qsTr("Test Crop")
+    title: qsTr("Test Resize/Rotate")
     width: 640
     height: 480
     visible: true
@@ -35,6 +35,9 @@ ApplicationWindow {
 
             property int rulersSize: 18
             property int minSize: 50
+            property int rotationAngle: 0
+
+            rotation: rotationAngle
 
             MouseArea {     // drag mouse area
                 anchors.fill: parent
@@ -53,23 +56,58 @@ ApplicationWindow {
             }
 
             Rectangle {
+                id: rotateleft
+                width: rulersSize
+                height: rulersSize
+                radius: rulersSize / 2
+                color: "black"
+                anchors.right: parent.left
+                anchors.bottom: parent.top
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        rotationAngle -= 15
+                    }
+                }
+            }
+
+            Rectangle {
+                id: rotateright
+                width: rulersSize
+                height: rulersSize
+                radius: rulersSize / 2
+                color: "black"
+                anchors.left: parent.right
+                anchors.bottom: parent.top
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        rotationAngle += 15
+                    }
+                }
+            }
+
+            Rectangle {
                 id: left
                 width: rulersSize
                 height: rulersSize
-                color: "black"
+                color: "green"
                 anchors.right: parent.left
                 anchors.verticalCenter: parent.verticalCenter
 
                 MouseArea {
                     anchors.fill: parent
-                    drag{ target: parent; axis: Drag.XAxis }
+                    drag{ target: parent; axis: Drag.XAxis}
                     onMouseXChanged: {
                         if(drag.active){
                             var myMouseX = mouseX
                             if (selComp.width - mouseX < minSize)
                                 myMouseX = selComp.width - minSize
                             selComp.width -= myMouseX
-                            selComp.x += myMouseX
+                            selComp.x += myMouseX * (0.5 + 0.5 * Math.cos(rotationAngle/180*Math.PI))
+                            selComp.y += myMouseX * 0.5 * Math.sin(rotationAngle/180*Math.PI)
                         }
                     }
                 }
