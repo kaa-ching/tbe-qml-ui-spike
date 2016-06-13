@@ -49,20 +49,15 @@ ApplicationWindow {
                     maximumY: parent.parent.height - parent.height
                     smoothed: true
                 }
-
-                onDoubleClicked: {
-                    parent.destroy()        // destroy component
-                }
             }
 
-            Rectangle {
-                id: rotateleft
+            Image {
+                id: rotateLeft
                 width: rulersSize
                 height: rulersSize
-                radius: rulersSize / 2
-                color: "black"
-                anchors.right: parent.left
-                anchors.bottom: parent.top
+                anchors.horizontalCenter: parent.left
+                anchors.verticalCenter: parent.top
+                source: "qrc:/images/ActionRotateLeft.svg"
 
                 MouseArea {
                     anchors.fill: parent
@@ -72,14 +67,30 @@ ApplicationWindow {
                 }
             }
 
-            Rectangle {
+            Image {
+                id: deleteItem
+                width: rulersSize
+                height: rulersSize
+                anchors.right: rotateLeft.left
+                anchors.verticalCenter: rotateLeft.verticalCenter
+                source: "qrc:/images/ActionDelete.svg"
+
+                MouseArea {
+                    anchors.fill: parent
+                    onDoubleClicked: {
+                        selComp.destroy()        // destroy component
+                    }
+                }
+            }
+
+            Image {
                 id: rotateright
                 width: rulersSize
                 height: rulersSize
-                radius: rulersSize / 2
-                color: "black"
-                anchors.left: parent.right
-                anchors.bottom: parent.top
+                anchors.horizontalCenter: parent.right
+                anchors.verticalCenter: parent.top
+                source: "qrc:/images/ActionRotateLeft.svg"
+                mirror: true
 
                 MouseArea {
                     anchors.fill: parent
@@ -89,13 +100,13 @@ ApplicationWindow {
                 }
             }
 
-            Rectangle {
+            Image {
                 id: left
                 width: rulersSize
-                height: rulersSize
-                color: "green"
-                anchors.right: parent.left
+                height: rulersSize / 1.5
+                anchors.horizontalCenter: parent.left
                 anchors.verticalCenter: parent.verticalCenter
+                source: "qrc:/images/ActionResizeHorizontally.svg"
 
                 MouseArea {
                     anchors.fill: parent
@@ -113,13 +124,13 @@ ApplicationWindow {
                 }
             }
 
-            Rectangle {
+            Image {
                 id: right
                 width: rulersSize
-                height: rulersSize
-                color: "black"
-                anchors.left: parent.right
+                height: rulersSize / 1.5
+                anchors.horizontalCenter: parent.right
                 anchors.verticalCenter: parent.verticalCenter
+                source: "qrc:/images/ActionResizeHorizontally.svg"
 
                 MouseArea {
                     anchors.fill: parent
@@ -134,13 +145,14 @@ ApplicationWindow {
                 }
             }
 
-            Rectangle {
+            Image {
                 id: top
                 width: rulersSize
-                height: rulersSize
-                color: "black"
+                height: rulersSize / 1.5
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.bottom: parent.top
+                anchors.verticalCenter: parent.top
+                source: "qrc:/images/ActionResizeHorizontally.svg"
+                rotation: 90
 
                 MouseArea {
                     anchors.fill: parent
@@ -158,12 +170,14 @@ ApplicationWindow {
             }
 
 
-            Rectangle {
+            Image {
+                id: bottom
                 width: rulersSize
-                height: rulersSize
-                color: "black"
+                height: rulersSize / 1.5
                 anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: parent.bottom
+                anchors.verticalCenter: parent.bottom
+                source: "qrc:/images/ActionResizeHorizontally.svg"
+                rotation: 90
 
                 MouseArea {
                     anchors.fill: parent
