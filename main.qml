@@ -140,9 +140,12 @@ ApplicationWindow {
                     drag{ target: parent; axis: Drag.XAxis }
                     onMouseXChanged: {
                         if(drag.active){
-                            selComp.width = selComp.width + mouseX
-                            if(selComp.width < minSize)
-                                selComp.width = minSize
+                            var myMouseX = mouseX
+                            if (selComp.width + mouseX < minSize)
+                                myMouseX = minSize - selComp.width
+                            selComp.width += myMouseX
+                            selComp.x -= myMouseX * (0.5 - 0.5 * Math.cos(rotationAngle/180*Math.PI))
+                            selComp.y += myMouseX * 0.5 * Math.sin(rotationAngle/180*Math.PI)
                         }
                     }
                 }
@@ -165,7 +168,8 @@ ApplicationWindow {
                             if (selComp.height - mouseY < minSize)
                                 myMouseY = selComp.height - minSize
                             selComp.height -= myMouseY
-                            selComp.y += myMouseY
+                            selComp.x -= myMouseY * 0.5 * Math.sin(rotationAngle/180*Math.PI)
+                            selComp.y += myMouseY * (0.5 + 0.5 * Math.cos(rotationAngle/180*Math.PI))
                         }
                     }
                 }
@@ -185,9 +189,12 @@ ApplicationWindow {
                     drag{ target: parent; axis: Drag.YAxis }
                     onMouseYChanged: {
                         if(drag.active){
-                            selComp.height = selComp.height + mouseY
-                            if(selComp.height < minSize)
-                                selComp.height = minSize
+                            var myMouseY = mouseY
+                            if (selComp.height + mouseY < minSize)
+                                myMouseY = minSize - selComp.height
+                            selComp.height += myMouseY
+                            selComp.x -= myMouseY * 0.5 * Math.sin(rotationAngle/180*Math.PI)
+                            selComp.y -= myMouseY * (0.5 - 0.5 * Math.cos(rotationAngle/180*Math.PI))
                         }
                     }
                 }
