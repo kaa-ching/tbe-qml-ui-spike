@@ -33,7 +33,7 @@ ApplicationWindow {
             }
             color: "#354682B4"
 
-            property int rulersSize: 18
+            property int rulersSize: 22 // for Klaas' FullHD 24"
             property int minSize: 50
             property int rotationAngle: 0
 
@@ -52,6 +52,7 @@ ApplicationWindow {
             }
 
             Image {
+                // TODO/FIXME: I want to redo this to work like PowerPoint: move mouse at will, but always rotate in 15 degree steps
                 id: rotateLeft
                 width: rulersSize
                 height: rulersSize
@@ -68,10 +69,12 @@ ApplicationWindow {
             }
 
             Image {
+                // TODO/FIXME: I hate the fact that I cannot use a tooltip to highlight the double clicking
                 id: deleteItem
                 width: rulersSize
                 height: rulersSize
                 anchors.right: rotateLeft.left
+                anchors.rightMargin: rulersSize / 2.0
                 anchors.verticalCenter: rotateLeft.verticalCenter
                 source: "qrc:/images/ActionDelete.svg"
 
