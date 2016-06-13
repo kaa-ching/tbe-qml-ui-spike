@@ -4,5 +4,6 @@
         <file>images/ActionDelete.svg</file>
         <file>images/ActionResizeHorizontally.svg</file>
         <file>images/ActionRotateLeft.svg</file>
+        <file>images/ActionResizeVertically.svg</file>
     </qresource>
 </RCC>

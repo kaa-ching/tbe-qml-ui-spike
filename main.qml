@@ -150,12 +150,11 @@ ApplicationWindow {
 
             Image {
                 id: top
-                width: rulersSize
-                height: rulersSize / 1.5
+                width: rulersSize / 1.5
+                height: rulersSize
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.top
-                source: "qrc:/images/ActionResizeHorizontally.svg"
-                rotation: 90
+                source: "qrc:/images/ActionResizeVertically.svg"
 
                 MouseArea {
                     anchors.fill: parent
@@ -175,12 +174,11 @@ ApplicationWindow {
 
             Image {
                 id: bottom
-                width: rulersSize
-                height: rulersSize / 1.5
+                width: rulersSize / 1.5
+                height: rulersSize
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.bottom
-                source: "qrc:/images/ActionResizeHorizontally.svg"
-                rotation: 90
+                source: "qrc:/images/ActionResizeVertically.svg"
 
                 MouseArea {
                     anchors.fill: parent
