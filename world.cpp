@@ -2,7 +2,9 @@
 #include "world.h"
 #include <cassert>
 
-World::World() {
+World::World(float aWidth, float aHeight)
+    : theWidth(aWidth), theHeight(aHeight)
+{
 
 }
 
