@@ -1,0 +1,6 @@
+Makefile
+*.o
+build/
+moc_*.cpp
+qrc_*.cpp
+stackoverflow-resizable-rectangle
