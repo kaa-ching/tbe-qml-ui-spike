@@ -2,6 +2,7 @@ import QtQuick 2.4
 import QtQuick.Controls 1.3
 
 ApplicationWindow {
+    id: theScene
     title: qsTr("Test Resize/Rotate")
     width: 640
     height: 480
@@ -16,10 +17,32 @@ ApplicationWindow {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                if(!selection)
-                    selection = selectionComponent.createObject(parent, {"x": parent.width / 4, "y": parent.height / 4, "width": parent.width / 2, "height": parent.width / 2})
+                console.log("parent clicked")
+                if(selection)
+                    selection.destroy()
             }
         }
+    }
+
+    Image {
+        id: floor1
+        source: "qrc:/images/used_wood_bar.png"
+        width: 200
+        height: 80
+        x: 120
+        y: 130
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                if(!selection)
+                    selection = selectionComponent.createObject(floor1, {
+                                                                    "rotationAngle": parent.rotation,
+                                                                    "width": parent.width,
+                                                                    "height": parent.height})
+            }
+        }
+
     }
 
     Component {
@@ -38,6 +61,12 @@ ApplicationWindow {
             property int rotationAngle: 0
 
             rotation: rotationAngle
+
+            Binding { target: floor1; property: "x"; value: selComp.x }
+            Binding { target: floor1; property: "y"; value: selComp.y }
+            Binding { target: floor1; property: "rotation"; value: rotationAngle }
+            Binding { target: floor1; property: "width"; value: selComp.width }
+            Binding { target: floor1; property: "height"; value: selComp.height }
 
             MouseArea {     // drag mouse area
                 anchors.fill: parent
@@ -73,9 +102,11 @@ ApplicationWindow {
                 id: deleteItem
                 width: rulersSize
                 height: rulersSize
-                anchors.right: rotateLeft.left
+//                anchors.right: rotateLeft.left
+                anchors.left: parent.right
                 anchors.rightMargin: rulersSize / 2.0
-                anchors.verticalCenter: rotateLeft.verticalCenter
+//                anchors.verticalCenter: rotateLeft.verticalCenter
+                anchors.top: parent.bottom
                 source: "qrc:/images/ActionDelete.svg"
 
                 MouseArea {
