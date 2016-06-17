@@ -7,5 +7,6 @@
         <file>images/ActionResizeVertically.svg</file>
         <file>images/BowlingPin.svg</file>
         <file>images/used_wood_bar.png</file>
+        <file>content/MoveResizeRotate.qml</file>
     </qresource>
 </RCC>
