@@ -1,0 +1,19 @@
+This code was created to showcase the use of QML to make a new, rich UI for (The Butterfly Effect)[http://the-butterfly-effect.org].
+
+The goals of this "spike":
+ * learn how to use QT's QML
+   * learn all about the new declarative approach
+   * figure out the minimum Qt version needed
+   * learn how to integrate C++ code and QML
+   * use as little Javascript as possible
+   * learn what's missing in QML and needs to be written custom
+     * undo/redo
+     * collision detection
+ * prototype a new, simpler UI
+ * validate ease-of-use with a few users
+
+I'll leave it up to you to judge if the above succeeded.
+
+
+kaa-ching, a.k.a. Klaas van Gend
+
