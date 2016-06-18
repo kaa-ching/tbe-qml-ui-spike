@@ -3,4 +3,5 @@ Makefile
 build/
 moc_*.cpp
 qrc_*.cpp
-stackoverflow-resizable-rectangle
+tbe-qml-ui-spike
+tbe-qml-ui-spike.pro.user.*
