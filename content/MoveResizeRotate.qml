@@ -5,6 +5,7 @@ Rectangle {
     property int rulersSize: 22 // for Klaas' FullHD 24"
     property int minSize: 50
     property int rotationAngle: 0
+    property Item theParent: null
 
     border {
         width: 1

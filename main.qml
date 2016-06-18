@@ -33,14 +33,16 @@ ApplicationWindow {
         height: 80
         x: 120
         y: 130
-
         MouseArea {
             anchors.fill: parent
             onClicked: {
                 if(!selection) {
                     var component = Qt.createComponent("content/MoveResizeRotate.qml");
                     if (component.status == Component.Ready) {
-                        selection = component.createObject(parent, {
+                        selection = component.createObject(theScene, {
+                                                               "theParent": parent,
+                                                               "x": parent.x,
+                                                               "y": parent.y,
                                                                "rotationAngle": parent.rotation,
                                                                "width": parent.width,
                                                                "height": parent.height})
