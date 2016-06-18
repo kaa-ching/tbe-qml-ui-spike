@@ -1,7 +1,5 @@
 import QtQuick 2.4
 
-// TODO/FIXME: move (dragging) is no longer part of this object
-
 Rectangle {
     id: theDecorator
     property int rulersSize: 22 // for Klaas' FullHD 24"
