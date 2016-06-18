@@ -50,6 +50,35 @@ ApplicationWindow {
                 }
             }
         }
-
     }
+
+    Image {
+        id: floor2
+        source: "qrc:/images/used_wood_bar.png"
+        width: 200
+        height: 80
+        fillMode: Image.Tile
+        x: 250
+        y: 230
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                if(!selection) {
+                    var component = Qt.createComponent("content/MoveResizeRotate.qml");
+                    if (component.status == Component.Ready) {
+                        selection = component.createObject(theScene, {
+                                                               "theParent": parent,
+                                                               "x": parent.x,
+                                                               "y": parent.y,
+                                                               "rotationAngle": parent.rotation,
+                                                               "width": parent.width,
+                                                               "height": parent.height})
+                    }
+                }
+            }
+        }
+    }
+
+
 }

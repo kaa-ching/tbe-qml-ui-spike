@@ -15,11 +15,11 @@ Rectangle {
     color: "#354682B4"
     rotation: rotationAngle
 
-    Binding { target: floor1; property: "x"; value: selComp.x }
-    Binding { target: floor1; property: "y"; value: selComp.y }
-    Binding { target: floor1; property: "rotation"; value: rotationAngle }
-    Binding { target: floor1; property: "width"; value: selComp.width }
-    Binding { target: floor1; property: "height"; value: selComp.height }
+    Binding { target: theParent; property: "x"; value: selComp.x }
+    Binding { target: theParent; property: "y"; value: selComp.y }
+    Binding { target: theParent; property: "rotation"; value: rotationAngle }
+    Binding { target: theParent; property: "width"; value: selComp.width }
+    Binding { target: theParent; property: "height"; value: selComp.height }
 
     MouseArea {     // drag mouse area
         anchors.fill: parent
@@ -27,8 +27,8 @@ Rectangle {
             target: parent
             minimumX: 0
             minimumY: 0
-            maximumX: parent.parent.width - parent.width
-            maximumY: parent.parent.height - parent.height
+            maximumX: theParent.parent.width - parent.width
+            maximumY: theParent.parent.height - parent.height
             smoothed: true
         }
     }
@@ -49,6 +49,7 @@ Rectangle {
             }
         }
     }
+
 
     Image {
         // TODO/FIXME: I hate the fact that I cannot use a tooltip to highlight the double clicking
