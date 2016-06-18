@@ -40,7 +40,7 @@ ApplicationWindow {
                     var component = Qt.createComponent("content/MoveResizeRotate.qml");
                     if (component.status == Component.Ready) {
                         selection = component.createObject(theScene, {
-                                                               "theParent": parent,
+                                                               "theDecorated": parent,
                                                                "x": parent.x,
                                                                "y": parent.y,
                                                                "rotationAngle": parent.rotation,
@@ -48,6 +48,8 @@ ApplicationWindow {
                                                                "height": parent.height})
                     }
                 }
+                else
+                    selection.destroy();
             }
         }
     }
@@ -68,7 +70,7 @@ ApplicationWindow {
                     var component = Qt.createComponent("content/MoveResizeRotate.qml");
                     if (component.status == Component.Ready) {
                         selection = component.createObject(theScene, {
-                                                               "theParent": parent,
+                                                               "theDecorated": parent,
                                                                "x": parent.x,
                                                                "y": parent.y,
                                                                "rotationAngle": parent.rotation,
@@ -76,6 +78,8 @@ ApplicationWindow {
                                                                "height": parent.height})
                     }
                 }
+                else
+                    selection.destroy();
             }
         }
     }

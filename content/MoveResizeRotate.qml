@@ -1,11 +1,11 @@
 import QtQuick 2.4
 
 Rectangle {
-    id: selComp
+    id: theDecorator
     property int rulersSize: 22 // for Klaas' FullHD 24"
     property int minSize: 50
     property int rotationAngle: 0
-    property Item theParent: null
+    property Item theDecorated: null
 
     border {
         width: 1
@@ -15,11 +15,11 @@ Rectangle {
     color: "#354682B4"
     rotation: rotationAngle
 
-    Binding { target: theParent; property: "x"; value: selComp.x }
-    Binding { target: theParent; property: "y"; value: selComp.y }
-    Binding { target: theParent; property: "rotation"; value: rotationAngle }
-    Binding { target: theParent; property: "width"; value: selComp.width }
-    Binding { target: theParent; property: "height"; value: selComp.height }
+    Binding { target: theDecorated; property: "x"; value: theDecorator.x }
+    Binding { target: theDecorated; property: "y"; value: theDecorator.y }
+    Binding { target: theDecorated; property: "rotation"; value: rotationAngle }
+    Binding { target: theDecorated; property: "width"; value: theDecorator.width }
+    Binding { target: theDecorated; property: "height"; value: theDecorator.height }
 
     MouseArea {     // drag mouse area
         anchors.fill: parent
@@ -27,8 +27,8 @@ Rectangle {
             target: parent
             minimumX: 0
             minimumY: 0
-            maximumX: theParent.parent.width - parent.width
-            maximumY: theParent.parent.height - parent.height
+            maximumX: theDecorated.parent.width - parent.width
+            maximumY: theDecorated.parent.height - parent.height
             smoothed: true
         }
     }
@@ -50,23 +50,21 @@ Rectangle {
         }
     }
 
-
     Image {
         // TODO/FIXME: I hate the fact that I cannot use a tooltip to highlight the double clicking
         id: deleteItem
         width: rulersSize
         height: rulersSize
-//                anchors.right: rotateLeft.left
-        anchors.left: parent.right
+        anchors.right: rotateLeft.left
         anchors.rightMargin: rulersSize / 2.0
-//                anchors.verticalCenter: rotateLeft.verticalCenter
-        anchors.top: parent.bottom
+        anchors.verticalCenter: rotateLeft.verticalCenter
         source: "qrc:/images/ActionDelete.svg"
 
         MouseArea {
             anchors.fill: parent
             onDoubleClicked: {
-                selComp.destroy()        // destroy component
+                theDecorator.destroy()
+                theDecorated.destroy()
             }
         }
     }
@@ -102,11 +100,11 @@ Rectangle {
             onMouseXChanged: {
                 if(drag.active){
                     var myMouseX = mouseX
-                    if (selComp.width - mouseX < minSize)
-                        myMouseX = selComp.width - minSize
-                    selComp.width -= myMouseX
-                    selComp.x += myMouseX * (0.5 + 0.5 * Math.cos(rotationAngle/180*Math.PI))
-                    selComp.y += myMouseX * 0.5 * Math.sin(rotationAngle/180*Math.PI)
+                    if (theDecorator.width - mouseX < minSize)
+                        myMouseX = theDecorator.width - minSize
+                    theDecorator.width -= myMouseX
+                    theDecorator.x += myMouseX * (0.5 + 0.5 * Math.cos(rotationAngle/180*Math.PI))
+                    theDecorator.y += myMouseX * 0.5 * Math.sin(rotationAngle/180*Math.PI)
                 }
             }
         }
@@ -126,11 +124,11 @@ Rectangle {
             onMouseXChanged: {
                 if(drag.active){
                     var myMouseX = mouseX
-                    if (selComp.width + mouseX < minSize)
-                        myMouseX = minSize - selComp.width
-                    selComp.width += myMouseX
-                    selComp.x -= myMouseX * (0.5 - 0.5 * Math.cos(rotationAngle/180*Math.PI))
-                    selComp.y += myMouseX * 0.5 * Math.sin(rotationAngle/180*Math.PI)
+                    if (theDecorator.width + mouseX < minSize)
+                        myMouseX = minSize - theDecorator.width
+                    theDecorator.width += myMouseX
+                    theDecorator.x -= myMouseX * (0.5 - 0.5 * Math.cos(rotationAngle/180*Math.PI))
+                    theDecorator.y += myMouseX * 0.5 * Math.sin(rotationAngle/180*Math.PI)
                 }
             }
         }
@@ -150,11 +148,11 @@ Rectangle {
             onMouseYChanged: {
                 if(drag.active){
                     var myMouseY = mouseY
-                    if (selComp.height - mouseY < minSize)
-                        myMouseY = selComp.height - minSize
-                    selComp.height -= myMouseY
-                    selComp.x -= myMouseY * 0.5 * Math.sin(rotationAngle/180*Math.PI)
-                    selComp.y += myMouseY * (0.5 + 0.5 * Math.cos(rotationAngle/180*Math.PI))
+                    if (theDecorator.height - mouseY < minSize)
+                        myMouseY = theDecorator.height - minSize
+                    theDecorator.height -= myMouseY
+                    theDecorator.x -= myMouseY * 0.5 * Math.sin(rotationAngle/180*Math.PI)
+                    theDecorator.y += myMouseY * (0.5 + 0.5 * Math.cos(rotationAngle/180*Math.PI))
                 }
             }
         }
@@ -175,11 +173,11 @@ Rectangle {
             onMouseYChanged: {
                 if(drag.active){
                     var myMouseY = mouseY
-                    if (selComp.height + mouseY < minSize)
-                        myMouseY = minSize - selComp.height
-                    selComp.height += myMouseY
-                    selComp.x -= myMouseY * 0.5 * Math.sin(rotationAngle/180*Math.PI)
-                    selComp.y -= myMouseY * (0.5 - 0.5 * Math.cos(rotationAngle/180*Math.PI))
+                    if (theDecorator.height + mouseY < minSize)
+                        myMouseY = minSize - theDecorator.height
+                    theDecorator.height += myMouseY
+                    theDecorator.x -= myMouseY * 0.5 * Math.sin(rotationAngle/180*Math.PI)
+                    theDecorator.y -= myMouseY * (0.5 - 0.5 * Math.cos(rotationAngle/180*Math.PI))
                 }
             }
         }
