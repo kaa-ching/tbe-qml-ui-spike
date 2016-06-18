@@ -12,10 +12,23 @@ ApplicationWindow {
     height: 480
     visible: true
 
-    Image {
+    Rectangle {
         id: image1
+        gradient: Gradient {
+            GradientStop {
+                position: 0.00;
+                color: "#6baaf1";
+            }
+            GradientStop {
+                position: 0.64;
+                color: "#ffffff";
+            }
+            GradientStop {
+                position: 0.98;
+                color: "#175800";
+            }
+        }
         anchors.fill: parent
-        source: "http://cdn.cutestpaw.com/wp-content/uploads/2013/01/l-Kitty-attack.jpg"
 
         MouseArea {
             anchors.fill: parent
