@@ -44,6 +44,11 @@ ApplicationWindow {
                 smoothed: true
             }
             onPressed: {
+                if(selection)
+                    if (selection.theDecorated != parent) {
+                        selection.destroy();
+                        selection = null
+                    }
                 if(!selection) {
                     var component = Qt.createComponent("content/MoveResizeRotate.qml");
                     if (component.status == Component.Ready) {
@@ -56,9 +61,6 @@ ApplicationWindow {
                                                                "height": parent.height})
                     }
                 }
-                else
-                    if (selection.theDecorated != parent)
-                        selection.destroy();
             }
         }
     }
@@ -85,6 +87,11 @@ ApplicationWindow {
                 smoothed: true
             }
             onPressed: {
+                if(selection)
+                    if (selection.theDecorated != parent) {
+                        selection.destroy();
+                        selection = null
+                    }
                 if(!selection) {
                     var component = Qt.createComponent("content/MoveResizeRotate.qml");
                     if (component.status == Component.Ready) {
@@ -97,9 +104,6 @@ ApplicationWindow {
                                                                "height": parent.height})
                     }
                 }
-                else
-                    if (selection.theDecorated != parent)
-                        selection.destroy();
             }
         }
     }
