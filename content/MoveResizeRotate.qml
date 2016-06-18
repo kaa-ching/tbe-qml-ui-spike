@@ -1,5 +1,7 @@
 import QtQuick 2.4
 
+// TODO/FIXME: move (dragging) is no longer part of this object
+
 Rectangle {
     id: theDecorator
     property int rulersSize: 22 // for Klaas' FullHD 24"
@@ -15,23 +17,16 @@ Rectangle {
     color: "#354682B4"
     rotation: rotationAngle
 
+    // make sure theDecorated follows our changes (due to Resize or Rotate)
     Binding { target: theDecorated; property: "x"; value: theDecorator.x }
     Binding { target: theDecorated; property: "y"; value: theDecorator.y }
     Binding { target: theDecorated; property: "rotation"; value: rotationAngle }
     Binding { target: theDecorated; property: "width"; value: theDecorator.width }
     Binding { target: theDecorated; property: "height"; value: theDecorator.height }
 
-    MouseArea {     // drag mouse area
-        anchors.fill: parent
-        drag{
-            target: parent
-            minimumX: 0
-            minimumY: 0
-            maximumX: theDecorated.parent.width - parent.width
-            maximumY: theDecorated.parent.height - parent.height
-            smoothed: true
-        }
-    }
+    // make sure we follow theDecotated position changes (due to dragging)
+    Binding { target: theDecorator; property: "x"; value: theDecorated.x }
+    Binding { target: theDecorator; property: "y"; value: theDecorated.y }
 
     Image {
         // TODO/FIXME: I want to redo this to work like PowerPoint: move mouse at will, but always rotate in 15 degree steps

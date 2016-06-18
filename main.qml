@@ -35,7 +35,15 @@ ApplicationWindow {
         y: 130
         MouseArea {
             anchors.fill: parent
-            onClicked: {
+            drag{
+                target: parent
+                minimumX: 0
+                minimumY: 0
+                maximumX: theScene.width - parent.width
+                maximumY: theScene.height - parent.height
+                smoothed: true
+            }
+            onPressed: {
                 if(!selection) {
                     var component = Qt.createComponent("content/MoveResizeRotate.qml");
                     if (component.status == Component.Ready) {
@@ -49,7 +57,8 @@ ApplicationWindow {
                     }
                 }
                 else
-                    selection.destroy();
+                    if (selection.theDecorated != parent)
+                        selection.destroy();
             }
         }
     }
@@ -60,12 +69,22 @@ ApplicationWindow {
         width: 200
         height: 80
         fillMode: Image.Tile
+        horizontalAlignment: Image.AlignLeft
+        verticalAlignment: Image.AlignTop
         x: 250
         y: 230
 
         MouseArea {
             anchors.fill: parent
-            onClicked: {
+            drag{
+                target: parent
+                minimumX: 0
+                minimumY: 0
+                maximumX: theScene.width - parent.width
+                maximumY: theScene.height - parent.height
+                smoothed: true
+            }
+            onPressed: {
                 if(!selection) {
                     var component = Qt.createComponent("content/MoveResizeRotate.qml");
                     if (component.status == Component.Ready) {
@@ -79,7 +98,8 @@ ApplicationWindow {
                     }
                 }
                 else
-                    selection.destroy();
+                    if (selection.theDecorated != parent)
+                        selection.destroy();
             }
         }
     }
