@@ -8,14 +8,25 @@ The goals of this "spike":
    * figure out the minimum Qt version needed
    * learn how to integrate C++ code and QML
    * use as little Javascript as possible
-   * learn what's missing in QML and needs to be written custom
+   * learn what's missing in QML and needs to be written in C++
      * undo/redo
      * collision detection
+     * coordinate conversions
  * prototype a new, simpler UI
  * validate ease-of-use with a few users
 
 I'll leave it up to you to judge if the above succeeded.
 
+Still to be implemented:
+ * coordinate conversions
+ * collision detection, and how to visualize issues with that
+ * another approach to adjusting rotation
+ * conditionals: only show horizontal arrows when hor resizing is allowed
+ * undo/redo
+ * polymorphism
+   * butterfly, colamintbottle and penguin require animations
+   * postit requires different clicking behavior
+   * detonatorbox has a handle that needs to be addressed
 
 kaa-ching, a.k.a. Klaas van Gend
 
