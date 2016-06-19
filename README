@@ -18,6 +18,7 @@ The goals of this "spike":
 I'll leave it up to you to judge if the above succeeded.
 
 Still to be implemented:
+ * integrate QQuickView into Qt's standard MainWindow layout
  * coordinate conversions
  * collision detection, and how to visualize issues with that
  * another approach to adjusting rotation
@@ -27,6 +28,10 @@ Still to be implemented:
    * butterfly, colamintbottle and penguin require animations
    * postit requires different clicking behavior
    * detonatorbox has a handle that needs to be addressed
+ * prototype the "toolbox"
+ * drag/drop from the "toolbox"
+ * tooltips
+
 
 kaa-ching, a.k.a. Klaas van Gend
 
