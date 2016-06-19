@@ -14,3 +14,12 @@ ViewItem::adjustObjectDrawing(qreal aWidth, qreal aHeight, const Position &aCent
 {
 
 }
+
+
+bool ViewItem::wouldBeColliding()
+{
+    // TODO: coordinate conversion
+
+    assert (Q_NULLPTR != theAbstractObjectPtr);
+    return theAbstractObjectPtr->isColliding(/*TODO: at Position XYAngle with size WxH */);
+}

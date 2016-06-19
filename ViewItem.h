@@ -17,6 +17,11 @@ public:
     /// @note This member should only be called by AbstractObject
     virtual void adjustObjectDrawing(qreal aWidth, qreal aHeight, const Position &aCenter);
 
+    /// Returns whether the object _at the current location_ would be colliding.
+    /// TODO/FIXME: This is technically wrong, as we only care about another position:
+    /// where our decorator currently is...
+    Q_INVOKABLE virtual bool wouldBeColliding();
+
 signals:
     /// SIGNAL
     /// Emitted whenever properties of the object change.
