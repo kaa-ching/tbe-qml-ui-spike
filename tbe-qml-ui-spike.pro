@@ -5,7 +5,7 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
     abstractobject.cpp \
-    viewobject.cpp \
+    ViewItem.cpp \
     world.cpp \
     Position.cpp
 
@@ -19,6 +19,6 @@ include(deployment.pri)
 
 HEADERS += \
     abstractobject.h \
-    viewobject.h \
+    ViewItem.h \
     world.h \
     Position.h

@@ -2,7 +2,7 @@
 #include <QQmlApplicationEngine>
 
 #include "abstractobject.h"
-#include "viewobject.h"
+//#include "ViewItem.h"
 #include "world.h"
 
 int main(int argc, char *argv[])

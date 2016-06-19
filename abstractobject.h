@@ -4,7 +4,7 @@
 #include <QString>
 #include "Position.h"
 
-class ViewObject;
+class ViewItem;
 class World;
 
 
@@ -15,7 +15,7 @@ public:
 
     bool isColliding();
 
-    ViewObject* createViewObject();
+    ViewItem* createViewObject();
 
     QString theImageName;
 

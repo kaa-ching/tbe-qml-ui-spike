@@ -1,5 +1,5 @@
 #include "abstractobject.h"
-#include "viewobject.h"
+#include "ViewItem.h"
 #include "world.h"
 
 AbstractObject::AbstractObject(const QString &anImageName, const Position &aPosition, float aWidth, float aHeight)
@@ -18,6 +18,6 @@ bool AbstractObject::isColliding() {
 }
 
 
-ViewObject *AbstractObject::createViewObject() {
+ViewItem *AbstractObject::createViewObject() {
     return nullptr;
 }
