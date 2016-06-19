@@ -33,7 +33,6 @@ ApplicationWindow {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                console.log("parent clicked")
                 if(selection)
                     selection.destroy()
             }
