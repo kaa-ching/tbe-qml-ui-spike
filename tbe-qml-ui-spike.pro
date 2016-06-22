@@ -6,8 +6,9 @@ CONFIG += c++11
 SOURCES += main.cpp \
     abstractobject.cpp \
     ViewItem.cpp \
-    world.cpp \
-    Position.cpp
+    World.cpp \
+    Position.cpp \
+    ResolutionConversionSingleton.cpp
 
 RESOURCES += qml.qrc
 
@@ -20,5 +21,6 @@ include(deployment.pri)
 HEADERS += \
     abstractobject.h \
     ViewItem.h \
-    world.h \
-    Position.h
+    World.h \
+    Position.h \
+    ResolutionConversionSingleton.h

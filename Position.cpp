@@ -1,5 +1,5 @@
 /* The Butterfly Effect
- * This file copyright (C) 2009,2010,2012  Klaas van Gend
+ * This file copyright (C) 2009,2010,2012,2016  Klaas van Gend
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -18,11 +18,10 @@
 
 #include "Position.h"
 //#include "Box2D.h"
+#include "ResolutionConversionSingleton.h"
 
 #include <cmath>
 #include <QtCore/QStringList>
-
-qreal THESCALE = 100;
 
 const qreal Position::minimalMove = 0.0001;
 const qreal Position::minimalRot  = 0.0001;
@@ -36,9 +35,10 @@ Position::Position (qreal anX, qreal aY, qreal anAngle)
 }
 
 Position::Position (const QPointF &aPoint, qreal anAngle)
-    : x(aPoint.x() / THESCALE), y(-aPoint.y() / THESCALE), angle(anAngle)
+    : angle(anAngle)
 {
-    ; // nothing to do here, sorry...
+    x = ResolutionConversionSingleton::convertPixels2X(aPoint.x());
+    y = ResolutionConversionSingleton::convertPixels2Y(aPoint.y());
 }
 
 Position::Position (const Vector &aPoint, qreal anAngle)
@@ -84,9 +84,9 @@ Vector::Vector (qreal aDX, qreal aDY)
 }
 
 Vector::Vector (const QPointF &aPoint)
-    : dx(aPoint.x() / THESCALE), dy(-aPoint.y() / THESCALE)
 {
-    ; // nothing to do here, sorry...
+    dx = ResolutionConversionSingleton::convertPixels2X(aPoint.x());
+    dy = ResolutionConversionSingleton::convertPixels2Y(aPoint.y());
 }
 
 
@@ -174,7 +174,9 @@ Position Vector::toPosition(void) const
 
 QPointF Vector::toQPointF(void) const
 {
-    return QPointF(THESCALE * dx, -THESCALE * dy);
+    return QPointF(
+                ResolutionConversionSingleton::convertX2Pixels(dx),
+                ResolutionConversionSingleton::convertY2Pixels(dy));
 }
 
 QString Vector::toString(void) const
@@ -220,13 +222,13 @@ Position operator-(const Position &p1, const Vector &v1)
 Position operator+(const Position &p1, const QPointF &p2)
 {
     assert(p1.isValid());
-    return Position(p1.x + p2.x() / THESCALE, p1.y + p2.y() / THESCALE, p1.angle);
+    return p1 + Vector(p2);
 }
 
 Position operator-(const Position &p1, const QPointF &p2)
 {
     assert(p1.isValid());
-    return Position(p1.x - p2.x() / THESCALE, p1.y - p2.y() / THESCALE, p1.angle);
+    return p1 - Vector(p2);
 }
 
 Vector operator+(const Vector &v1, const Vector &v2)

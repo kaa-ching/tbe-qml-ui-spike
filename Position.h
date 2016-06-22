@@ -1,5 +1,5 @@
 /* The Butterfly Effect
- * This file copyright (C) 2009,2010,2012  Klaas van Gend
+ * This file copyright (C) 2009,2010,2012,2016  Klaas van Gend
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,14 +23,33 @@
 #include <cassert>
 #include <cmath>
 #include <QtCore/QPointF>
+#include <QtCore/QSize>
 
 #define PI 3.1415926535
 
 struct b2Vec2;
 class Position;
 
-extern qreal THESCALE;
-
+// COORDINATE SYSTEMS IN TBE
+//
+// * Box2D and TBE Model share the same, SI units [m] based, coordinate system.
+//   A positive y is pointing upwards.
+//   * (0.0, World::height) is at the top-left
+//   * (World::width, 0.0) is at the bottom-right of the screen, not counting padding
+//     * padding always happens at either the right or the bottom
+//   - b2Vec2 is the Box2D vector type
+//   - Vector is the TBE Model vector type
+//   - Position is the TBE Model "vector from (0,0) to center of object plus angle" type
+//
+// * QQuickView uses a PIXEL-based coordinate system
+//   A positive y is pointing down.
+//   (0,0) is top-left  *** (TODO/FIXME: maybe including the title bar, menu and toolbar?)
+//   (QQuickView::width, QQuickView::height) is the bottom-right
+//
+// - constructors with QPointF assume conversion from QQuickView to TBEModel
+// - toQPointF() members assume conversion from TBEModel to QQuickView
+// - toQSize() members assume conversion from TBEModel to QQuickView
+// - tob2Vec2() members only create a different type, no calculations
 
 /// Compare two QReals
 /// @returns true if they are similiar within Position::minimalMove.
@@ -45,26 +64,42 @@ public:
     Vector (const QPointF &aPoint);
     Vector (const b2Vec2 &aVec);
 
-    /// constructor ignores the angle from the Position
-    /// think twice before using this one - physically it makes no sense!
+    /// Constructor ignores the angle from the Position.
+    /// Think twice before using this one - physically it makes no sense!
     Vector (const Position &aPosition);
 
-    /// constructs a vector of length 1 in direction anAngle
+    /// Constructs a vector of length 1 in direction anAngle.
     Vector (qreal anAngle);
 
-    /// @returns the length of the Vector
+    /// @returns The length of the Vector.
     qreal length(void) const;
 
+    /// @returns The angle of the Vector with the positive X axis.
     qreal    toAngle(void) const;
+
+    /// @returns The vector in Box2D type.
     b2Vec2   toB2Vec2(void) const;
+
+    /// @returns A Position instance, where the Vector is interpreted to be
+    /// pointing from (0,0) and the angle is zero.
     Position toPosition(void) const;
+
+    /// @returns This vector, interpreted with the QQuickView dimensions in mind
+    /// i.e. x and y are scaled and y is inverted.
     QPointF  toQPointF(void) const;
+
+    /// @returns This vector, interpreted with the QQuickView dimensions in mind
+    /// i.e. x and y are scaled and the abs() value is given.
+    QSize    toQSize(void) const;
+
+    /// @returns A QString representation of the Vector, useful for debugging.
     QString  toString(void) const;
 
     /// @returns a Vector in the same direction, but with length one.
     Vector   toUnitVector(void) const;
 
-    /// @returns this vector, rotated along anAngle
+    /// @returns This vector, rotated along anAngle.
+    /// @param anAngle      Angle in radians.
     Vector rotate(qreal anAngle) const;
 
     /** Converts a string in format "(0.0,0.0)" into this Vector
@@ -119,11 +154,7 @@ public:
     }
 
     b2Vec2  toB2Vec2(void) const;
-    QPointF toQPointF(void) const
-    {
-        assert(isValid());
-        return QPointF(THESCALE * x, -THESCALE * y);
-    }
+    QPointF toQPointF(void) const;
     QString toString(void) const;
     Vector  toVector(void) const
     {
