@@ -21,10 +21,10 @@ Image {
             if(selection)
                 if (selection.theDecorated != parent) {
                     selection.destroy();
-                    selection = null
+                    selection = undefined
                 }
             if(!selection) {
-                var component = Qt.createComponent("qrc:/content/MoveResizeRotate.qml");
+                var component = Qt.createComponent("qrc:/content/ResizeRotate.qml");
                 if (component.status == Component.Ready) {
                     selection = component.createObject(theScene, {
                                                            "theDecorated": parent,
