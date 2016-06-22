@@ -1,5 +1,6 @@
 import QtQuick 2.4
 import QtQuick.Controls 1.3
+import TBEView 1.0
 import "qrc:/content"
 
 ApplicationWindow {
@@ -40,7 +41,7 @@ ApplicationWindow {
     }
 
     ViewObject {
-        id: floor1
+        id: floor1a
         source: "qrc:/images/used_wood_bar.png"
         width: 200
         height: 80
@@ -49,7 +50,7 @@ ApplicationWindow {
     }
 
     ViewObject {
-        id: floor2
+        id: floor2b
         source: "qrc:/images/used_wood_bar.png"
         width: 200
         height: 80

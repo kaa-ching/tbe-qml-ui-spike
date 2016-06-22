@@ -1,6 +1,6 @@
-#include "abstractobject.h"
+#include "AbstractObject.h"
 #include "ViewItem.h"
-#include "world.h"
+#include "World.h"
 
 AbstractObject::AbstractObject(const QString &anImageName, const Position &aPosition, float aWidth, float aHeight)
     : theImageName(anImageName),

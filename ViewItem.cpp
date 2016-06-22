@@ -1,5 +1,5 @@
 #include "ViewItem.h"
-#include "abstractobject.h"
+#include "AbstractObject.h"
 
 ViewItem::ViewItem(QQuickItem *aParentPtr,
                        AbstractObject *anAOPtr)

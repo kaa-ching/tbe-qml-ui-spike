@@ -1,4 +1,4 @@
-#include "abstractobject.h"
+#include "AbstractObject.h"
 #include "World.h"
 #include <cassert>
 

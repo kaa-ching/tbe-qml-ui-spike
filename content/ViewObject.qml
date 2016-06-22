@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import TBEView 1.0
 
 Image {
     id: floor1
@@ -7,6 +8,11 @@ Image {
     height: 80
     x: 120
     y: 130
+
+    ViewItem {
+        // nothing needed here?
+    }
+
     MouseArea {
         anchors.fill: parent
         drag{

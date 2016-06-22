@@ -1,19 +1,23 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
-#include "abstractobject.h"
-//#include "ViewItem.h"
-#include "world.h"
+#include "AbstractObject.h"
+#include "ResolutionConversionSingleton.h"
+#include "ViewItem.h"
+#include "World.h"
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
+    qmlRegisterType<ViewItem>("TBEView", 1, 0, "ViewItem");
+
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     // load our objects into the view
-    World myWorld(4,5);
+    World myWorld(4,6);
+//    ResolutionConversionSingleton myRCS(engine);
 
     AbstractObject myObject1("BowlingPin", Position(2, 3, 0.2), 0.12, 0.34);
     myWorld.addObject(&myObject1);

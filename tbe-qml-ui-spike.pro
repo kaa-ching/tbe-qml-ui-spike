@@ -4,7 +4,7 @@ QT += qml quick
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    abstractobject.cpp \
+    AbstractObject.cpp \
     ViewItem.cpp \
     World.cpp \
     Position.cpp \
@@ -19,7 +19,7 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    abstractobject.h \
+    AbstractObject.h \
     ViewItem.h \
     World.h \
     Position.h \
