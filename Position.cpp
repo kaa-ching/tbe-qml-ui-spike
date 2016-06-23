@@ -47,11 +47,17 @@ Position::Position (const Vector &aPoint, qreal anAngle)
     ; // nothing to do here, sorry...
 }
 
-
 qreal Position::length(void)
 {
     assert(isValid());
     return sqrt(x * x + y * y);
+}
+
+QPointF Position::toQPointF() const
+{
+    return QPointF(
+                ResolutionConversionSingleton::convertX2Pixels(x),
+                ResolutionConversionSingleton::convertY2Pixels(y));
 }
 
 QString Position::toString(void) const
@@ -177,6 +183,13 @@ QPointF Vector::toQPointF(void) const
     return QPointF(
                 ResolutionConversionSingleton::convertX2Pixels(dx),
                 ResolutionConversionSingleton::convertY2Pixels(dy));
+}
+
+QSize Vector::toQSize(void) const
+{
+    return QSize(
+                ResolutionConversionSingleton::convertW2Pixels(dx),
+                ResolutionConversionSingleton::convertH2Pixels(dy));
 }
 
 QString Vector::toString(void) const

@@ -164,7 +164,7 @@ public:
 
     qreal angleInDegrees(void) const
     {
-        return angle * 180 / PI;
+        return -angle * 180 / PI;
     }
 
     qreal length(void);
