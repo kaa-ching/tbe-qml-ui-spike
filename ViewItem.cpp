@@ -1,5 +1,5 @@
-#include "ViewItem.h"
 #include "AbstractObject.h"
+#include "ViewItem.h"
 
 ViewItem::ViewItem(QQuickItem *aParentPtr,
                        AbstractObject *anAOPtr)
@@ -12,8 +12,16 @@ ViewItem::ViewItem(QQuickItem *aParentPtr,
 void
 ViewItem::adjustObjectDrawing(qreal aWidth_SI, qreal aHeight_SI, const Position &aCenter)
 {
-    parentItem()->setWidth(aWidth_SI);
-    parentItem()->setHeight(aHeight_SI);
+    // convert width and height from SI to pixels and set them
+    QSize mySize = Vector(aWidth_SI, aHeight_SI).toQSize();
+    parentItem()->setWidth(mySize.width());
+    parentItem()->setHeight(mySize.height());
+
+    // convert center position from SI to pixels and set the top-left position
+    parentItem()->setRotation(aCenter.angleInDegrees());
+    QPointF myCenter = aCenter.toQPointF();
+    parentItem()->setX(myCenter.x());
+    parentItem()->setY(myCenter.y());
 }
 
 
