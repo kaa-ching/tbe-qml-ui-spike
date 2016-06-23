@@ -14,8 +14,12 @@ public:
     /// @returns Width of a handle in pixels, depending on the DPI count of the display.
     static int getHandleHeight();
 
+    static qreal convertPixels2H(qreal aPixelH);
+    static qreal convertPixels2W(qreal aPixelW);
     static qreal convertPixels2X(qreal aPixelX);
     static qreal convertPixels2Y(qreal aPixelY);
+    static qreal convertH2Pixels(qreal anSI_H);
+    static qreal convertW2Pixels(qreal anSI_W);
     static qreal convertX2Pixels(qreal anSI_X);
     static qreal convertY2Pixels(qreal anSI_Y);
 
