@@ -3,15 +3,10 @@ import QtQuick.Controls 1.3
 import TBEView 1.0
 import "qrc:/content"
 
-ApplicationWindow {
+Item {
     id: theScene
 
     property var selection: undefined
-
-    title: qsTr("Test Resize/Rotate")
-    width: 640
-    height: 480
-    visible: true
 
     Rectangle {
         id: image1

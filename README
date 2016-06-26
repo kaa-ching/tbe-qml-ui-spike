@@ -14,11 +14,11 @@ The goals of this "spike":
      * coordinate conversions
  * prototype a new, simpler UI
  * validate ease-of-use with a few users
+ * integrate QQuickView into Qt's standard MainWindow layout
 
 I'll leave it up to you to judge if the above succeeded.
 
 Still to be implemented:
- * integrate QQuickView into Qt's standard MainWindow layout
  * coordinate conversions
    * introduce DPI singleton that communicates with view
    * enhance Position class
