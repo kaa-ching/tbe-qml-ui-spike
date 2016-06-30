@@ -92,7 +92,7 @@ qreal ResolutionConversionSingleton::convertY2Pixels(qreal anSI_Y)
 ResolutionConversionSingleton* ResolutionConversionSingleton::me()
 {
     assert (theRCSPtr != nullptr);
-    printf("the deviceAspectRatio: %f\n", theRCSPtr->theMainWindowPtr->windowHandle()->devicePixelRatio());
+//    printf("the deviceAspectRatio: %f\n", theRCSPtr->theMainWindowPtr->windowHandle()->devicePixelRatio());
 
     printf("number of screens: %d\n", QApplication::screens().count());
     QScreen* myScPtr = QApplication::screens().at(0);
