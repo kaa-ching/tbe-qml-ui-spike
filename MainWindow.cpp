@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // load our objects into the view
     World myWorld(4,6);
-//    ResolutionConversionSingleton myRCS(engine);
+    ResolutionConversionSingleton myRCS(nullptr, this);
 
     AbstractObject myObject1("BowlingPin", Position(2, 3, 0.2), 0.12, 0.34);
     myWorld.addObject(&myObject1);

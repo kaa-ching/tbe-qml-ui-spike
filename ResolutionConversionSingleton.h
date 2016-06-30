@@ -2,12 +2,15 @@
 #define RESOLUTIONCONVERSIONSINGLETON_H
 
 #include <QObject>
+#include <QMainWindow>
+
+class QScreen;
 
 class ResolutionConversionSingleton : public QObject
 {
     Q_OBJECT
 public:
-    explicit ResolutionConversionSingleton(QObject *parent = 0);
+    explicit ResolutionConversionSingleton(QObject *parent = nullptr, QMainWindow* aMainWindowPtr = nullptr);
 
     /// @returns Width of a handle in pixels, depending on the DPI count of the display.
     static int getHandleWidth();
@@ -23,12 +26,18 @@ public:
     static qreal convertX2Pixels(qreal anSI_X);
     static qreal convertY2Pixels(qreal anSI_Y);
 
+    static ResolutionConversionSingleton* me();
+
 signals:
 
 public slots:
+    void slot_screenAdded(QScreen *aScreen);
+    void slot_screenRemoved(QScreen *aScreen);
+
+
 private:
 
-    static ResolutionConversionSingleton* me();
+    QMainWindow* theMainWindowPtr;
 };
 
 #endif // RESOLUTIONCONVERSIONSINGLETON_H

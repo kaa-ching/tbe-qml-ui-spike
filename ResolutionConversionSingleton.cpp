@@ -1,11 +1,31 @@
 #include "ResolutionConversionSingleton.h"
 #include <cassert>
 
+
+#include <QWindow>
+#include <QScreen>
+#include <QGuiApplication>
+#include <QApplication>
+
+
+// TODO investigate:
+// QSize MyWidget::sizeHint() const
+//{
+//    return QSize(80, 25).expandedTo(QApplication::globalStrut());
+//}
+
 static ResolutionConversionSingleton *theRCSPtr = nullptr;
 
-ResolutionConversionSingleton::ResolutionConversionSingleton(QObject *parent) : QObject(parent)
+ResolutionConversionSingleton::ResolutionConversionSingleton(QObject *parent, QMainWindow* aMainWindowPtr)
+    : QObject(parent),
+      theMainWindowPtr(aMainWindowPtr)
 {
     theRCSPtr = this;
+
+    connect (qApp, &QGuiApplication::screenAdded,
+             this, &ResolutionConversionSingleton::slot_screenAdded);
+    connect (qApp, &QGuiApplication::screenRemoved,
+             this, &ResolutionConversionSingleton::slot_screenRemoved);
 }
 
 int ResolutionConversionSingleton::getHandleWidth()
@@ -72,5 +92,25 @@ qreal ResolutionConversionSingleton::convertY2Pixels(qreal anSI_Y)
 ResolutionConversionSingleton* ResolutionConversionSingleton::me()
 {
     assert (theRCSPtr != nullptr);
+    printf("the deviceAspectRatio: %f\n", theRCSPtr->theMainWindowPtr->windowHandle()->devicePixelRatio());
+
+    printf("number of screens: %d\n", QApplication::screens().count());
+    QScreen* myScPtr = QApplication::screens().at(0);
+
+    printf("  logical DPI: %f\n", myScPtr->logicalDotsPerInchX());
+    printf("  physicX DPI: %f\n", myScPtr->physicalDotsPerInchX());
+    printf("  physicY DPI: %f\n", myScPtr->physicalDotsPerInchY());
+
     return theRCSPtr;
+}
+
+
+void ResolutionConversionSingleton::slot_screenAdded(QScreen *aScreen)
+{
+    printf("screen added\n");
+}
+
+void ResolutionConversionSingleton::slot_screenRemoved(QScreen *aScreen)
+{
+    printf("screen deleted\n");
 }
