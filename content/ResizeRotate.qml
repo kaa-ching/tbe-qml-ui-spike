@@ -30,7 +30,7 @@ Rectangle {
         // TODO/FIXME: I want to redo this to work like PowerPoint: move mouse at will, but always rotate in 15 degree steps
         id: rotateLeft
         width: RCS.getHandleWidth()
-        height: RCS.getHandleWidth()
+        height: RCS.getHandleHeight()
         anchors.horizontalCenter: parent.left
         anchors.verticalCenter: parent.top
         source: "qrc:/images/ActionRotateLeft.svg"
@@ -47,7 +47,7 @@ Rectangle {
         // TODO/FIXME: I hate the fact that I cannot use a tooltip to highlight the double clicking
         id: deleteItem
         width: RCS.getHandleWidth()
-        height: RCS.getHandleWidth()
+        height: RCS.getHandleHeight()
         anchors.right: rotateLeft.left
         anchors.rightMargin: RCS.getHandleWidth() / 2.0
         anchors.verticalCenter: rotateLeft.verticalCenter
@@ -65,7 +65,7 @@ Rectangle {
     Image {
         id: rotateright
         width: RCS.getHandleWidth()
-        height: RCS.getHandleWidth()
+        height: RCS.getHandleHeight()
         anchors.horizontalCenter: parent.right
         anchors.verticalCenter: parent.top
         source: "qrc:/images/ActionRotateLeft.svg"
@@ -82,7 +82,7 @@ Rectangle {
     Image {
         id: left
         width: RCS.getHandleWidth()
-        height: RCS.getHandleWidth() / 1.5
+        height: RCS.getHandleHeight() / 1.5
         anchors.horizontalCenter: parent.left
         anchors.verticalCenter: parent.verticalCenter
         source: "qrc:/images/ActionResizeHorizontally.svg"
@@ -106,7 +106,7 @@ Rectangle {
     Image {
         id: right
         width: RCS.getHandleWidth()
-        height: RCS.getHandleWidth() / 1.5
+        height: RCS.getHandleHeight() / 1.5
         anchors.horizontalCenter: parent.right
         anchors.verticalCenter: parent.verticalCenter
         source: "qrc:/images/ActionResizeHorizontally.svg"
@@ -130,7 +130,7 @@ Rectangle {
     Image {
         id: top
         width: RCS.getHandleWidth() / 1.5
-        height: RCS.getHandleWidth()
+        height: RCS.getHandleHeight()
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.top
         source: "qrc:/images/ActionResizeVertically.svg"
@@ -155,7 +155,7 @@ Rectangle {
     Image {
         id: bottom
         width: RCS.getHandleWidth() / 1.5
-        height: RCS.getHandleWidth()
+        height: RCS.getHandleHeight()
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.bottom
         source: "qrc:/images/ActionResizeVertically.svg"

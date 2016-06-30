@@ -9,6 +9,7 @@
 
 // TODO: make configurable using QSettings
 static const qreal theHandleSizeMM = 4.; // handle is resolution independent, 4mm wide and tall
+static const int   theHandleMinPix = 18; // never make handle smaller than 18 pixels
 
 
 static ResolutionConversionSingleton *theRCSPtr = nullptr;
@@ -29,7 +30,7 @@ ResolutionConversionSingleton::ResolutionConversionSingleton(QObject *parent)
     printf("  physicY DPI: %f\n", theActualQScreenPtr->physicalDotsPerInchY());
     printf("  screen res: %dx%d pix\n", theActualQScreenPtr->availableSize().width(), theActualQScreenPtr->availableSize().height());
     printf("  screen dim: %fx%f mm\n", theActualQScreenPtr->physicalSize().width(), theActualQScreenPtr->physicalSize().height());
-    printf(" handle widthxheight = %dx%d\n", getHandleHeight(), getHandleHeight());
+    printf(" handle widthxheight = %dx%d\n", getHandleWidth(), getHandleHeight());
 
     connect (qApp, &QGuiApplication::screenAdded,
              this, &ResolutionConversionSingleton::slot_screenAdded);
@@ -40,13 +41,19 @@ ResolutionConversionSingleton::ResolutionConversionSingleton(QObject *parent)
 int ResolutionConversionSingleton::getHandleWidth()
 {
     assert (theActualQScreenPtr != nullptr);
-    return theHandleSizeMM / 25.4 * theActualQScreenPtr->physicalDotsPerInchX();
+    int myAnswer = theHandleSizeMM / 25.4 * theActualQScreenPtr->physicalDotsPerInchX();
+    if (myAnswer < theHandleMinPix)
+        myAnswer = theHandleMinPix;
+    return myAnswer;
 }
 
 int ResolutionConversionSingleton::getHandleHeight()
 {
     assert (theActualQScreenPtr != nullptr);
-    return theHandleSizeMM / 25.4 * theActualQScreenPtr->physicalDotsPerInchY();
+    int myAnswer = theHandleSizeMM / 25.4 * theActualQScreenPtr->physicalDotsPerInchY();
+    if (myAnswer < theHandleMinPix)
+        myAnswer = theHandleMinPix;
+    return myAnswer;
 }
 
 qreal ResolutionConversionSingleton::convertPixels2H(qreal aPixelH)
