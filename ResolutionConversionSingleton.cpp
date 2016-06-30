@@ -97,9 +97,12 @@ ResolutionConversionSingleton* ResolutionConversionSingleton::me()
     printf("number of screens: %d\n", QApplication::screens().count());
     QScreen* myScPtr = QApplication::screens().at(0);
 
+    printf("  name:  '%s'\n", myScPtr->name().toLatin1().constData());
     printf("  logical DPI: %f\n", myScPtr->logicalDotsPerInchX());
     printf("  physicX DPI: %f\n", myScPtr->physicalDotsPerInchX());
     printf("  physicY DPI: %f\n", myScPtr->physicalDotsPerInchY());
+    printf("  screen res: %dx%d pix\n", myScPtr->availableSize().width(), myScPtr->availableSize().height());
+    printf("  screen dim: %fx%f mm\n", myScPtr->physicalSize().width(), myScPtr->physicalSize().height());
 
     return theRCSPtr;
 }
