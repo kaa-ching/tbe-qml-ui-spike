@@ -36,19 +36,19 @@ Item {
     }
 
     ViewObject {
-        id: floor1a
-        source: "qrc:/images/used_wood_bar.png"
-        width: 200
-        height: 80
+        id: wall1
+        source: "qrc:/images/oldbrick.jpg"
+        width: 80
+        height: 200
         x: 120
         y: 130
     }
 
     ViewObject {
-        id: floor2b
-        source: "qrc:/images/used_wood_bar.png"
-        width: 200
-        height: 80
+        id: wall2
+        source: "qrc:/images/oldbrick.jpg"
+        width: 80
+        height: 200
         fillMode: Image.Tile
         horizontalAlignment: Image.AlignLeft
         verticalAlignment: Image.AlignTop
