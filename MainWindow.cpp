@@ -4,22 +4,22 @@
 #include "Popup.h"
 
 #include "AbstractObject.h"
-#include "ResolutionConversionSingleton.h"
 #include "ViewItem.h"
 #include "World.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    theRCS(this)
 {
     ui->setupUi(this);
 
     qmlRegisterType<ViewItem>("TBEView", 1, 0, "ViewItem");
+    qmlRegisterSingletonType<ResolutionConversionSingleton>("TBEView", 1, 0, "RCS", ResolutionConversionSingleton::RCS_provider);
     ui->quickWidget->setSource(QStringLiteral("qrc:/main.qml"));
 
     // load our objects into the view
     World myWorld(4,6);
-    ResolutionConversionSingleton myRCS(nullptr, this);
 
     AbstractObject myObject1("BowlingPin", Position(2, 3, 0.2), 0.12, 0.34);
     myWorld.addObject(&myObject1);

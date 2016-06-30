@@ -1,26 +1,35 @@
 #include "ResolutionConversionSingleton.h"
 #include <cassert>
 
-
 #include <QWindow>
 #include <QScreen>
 #include <QGuiApplication>
 #include <QApplication>
 
 
-// TODO investigate:
-// QSize MyWidget::sizeHint() const
-//{
-//    return QSize(80, 25).expandedTo(QApplication::globalStrut());
-//}
+// TODO: make configurable using QSettings
+static const qreal theHandleSizeMM = 4.; // handle is resolution independent, 4mm wide and tall
+
 
 static ResolutionConversionSingleton *theRCSPtr = nullptr;
 
-ResolutionConversionSingleton::ResolutionConversionSingleton(QObject *parent, QMainWindow* aMainWindowPtr)
+ResolutionConversionSingleton::ResolutionConversionSingleton(QObject *parent)
     : QObject(parent),
-      theMainWindowPtr(aMainWindowPtr)
+      theActualQScreenPtr(nullptr)
 {
     theRCSPtr = this;
+
+    // TODO/FIXME: if there's more than one screen, which one are we on?
+    printf("number of screens: %d\n", QApplication::screens().count());
+    theActualQScreenPtr = QApplication::screens().at(0);
+    assert (theActualQScreenPtr != nullptr);
+    printf("  name:  '%s'\n", theActualQScreenPtr->name().toLatin1().constData());
+    printf("  logical DPI: %f\n", theActualQScreenPtr->logicalDotsPerInchX());
+    printf("  physicX DPI: %f\n", theActualQScreenPtr->physicalDotsPerInchX());
+    printf("  physicY DPI: %f\n", theActualQScreenPtr->physicalDotsPerInchY());
+    printf("  screen res: %dx%d pix\n", theActualQScreenPtr->availableSize().width(), theActualQScreenPtr->availableSize().height());
+    printf("  screen dim: %fx%f mm\n", theActualQScreenPtr->physicalSize().width(), theActualQScreenPtr->physicalSize().height());
+    printf(" handle widthxheight = %dx%d\n", getHandleHeight(), getHandleHeight());
 
     connect (qApp, &QGuiApplication::screenAdded,
              this, &ResolutionConversionSingleton::slot_screenAdded);
@@ -30,14 +39,14 @@ ResolutionConversionSingleton::ResolutionConversionSingleton(QObject *parent, QM
 
 int ResolutionConversionSingleton::getHandleWidth()
 {
-    // TODO/FIXME: make this flexible for High-DPI screens later
-    return 24;
+    assert (theActualQScreenPtr != nullptr);
+    return theHandleSizeMM / 25.4 * theActualQScreenPtr->physicalDotsPerInchX();
 }
 
 int ResolutionConversionSingleton::getHandleHeight()
 {
-    // TODO/FIXME: make this flexible for High-DPI screens later
-    return 24;
+    assert (theActualQScreenPtr != nullptr);
+    return theHandleSizeMM / 25.4 * theActualQScreenPtr->physicalDotsPerInchY();
 }
 
 qreal ResolutionConversionSingleton::convertPixels2H(qreal aPixelH)
@@ -92,27 +101,16 @@ qreal ResolutionConversionSingleton::convertY2Pixels(qreal anSI_Y)
 ResolutionConversionSingleton* ResolutionConversionSingleton::me()
 {
     assert (theRCSPtr != nullptr);
-//    printf("the deviceAspectRatio: %f\n", theRCSPtr->theMainWindowPtr->windowHandle()->devicePixelRatio());
-
-    printf("number of screens: %d\n", QApplication::screens().count());
-    QScreen* myScPtr = QApplication::screens().at(0);
-
-    printf("  name:  '%s'\n", myScPtr->name().toLatin1().constData());
-    printf("  logical DPI: %f\n", myScPtr->logicalDotsPerInchX());
-    printf("  physicX DPI: %f\n", myScPtr->physicalDotsPerInchX());
-    printf("  physicY DPI: %f\n", myScPtr->physicalDotsPerInchY());
-    printf("  screen res: %dx%d pix\n", myScPtr->availableSize().width(), myScPtr->availableSize().height());
-    printf("  screen dim: %fx%f mm\n", myScPtr->physicalSize().width(), myScPtr->physicalSize().height());
-
     return theRCSPtr;
 }
 
-
+// TODO/FIXME: don't work on Linux
 void ResolutionConversionSingleton::slot_screenAdded(QScreen *aScreen)
 {
     printf("screen added\n");
 }
 
+// TODO/FIXME: don't work on Linux
 void ResolutionConversionSingleton::slot_screenRemoved(QScreen *aScreen)
 {
     printf("screen deleted\n");
