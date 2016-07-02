@@ -3,6 +3,7 @@ import TBEView 1.0
 
 Rectangle {
     id: theDecorator
+    objectName: "theDecorator"
     property int minSize: 50
     property int rotationAngle: 0
     property Item theDecorated: null
@@ -29,8 +30,8 @@ Rectangle {
     Image {
         // TODO/FIXME: I want to redo this to work like PowerPoint: move mouse at will, but always rotate in 15 degree steps
         id: rotateLeft
-        width: RCS.handleWidth
-        height: RCS.handleHeight
+        width: RCS.handleWidth / theScale
+        height: RCS.handleHeight / theScale
         anchors.horizontalCenter: parent.left
         anchors.verticalCenter: parent.top
         source: "qrc:/images/ActionRotateLeft.svg"
@@ -46,8 +47,8 @@ Rectangle {
     Image {
         // TODO/FIXME: I hate the fact that I cannot use a tooltip to highlight the double clicking
         id: deleteItem
-        width: RCS.handleWidth
-        height: RCS.handleHeight
+        width: RCS.handleWidth / theScale
+        height: RCS.handleHeight / theScale
         anchors.right: rotateLeft.left
         anchors.rightMargin: RCS.handleWidth / 2.0
         anchors.verticalCenter: rotateLeft.verticalCenter
@@ -64,8 +65,8 @@ Rectangle {
 
     Image {
         id: rotateright
-        width: RCS.handleWidth
-        height: RCS.handleHeight
+        width: RCS.handleWidth / theScale
+        height: RCS.handleHeight / theScale
         anchors.horizontalCenter: parent.right
         anchors.verticalCenter: parent.top
         source: "qrc:/images/ActionRotateLeft.svg"
@@ -81,8 +82,8 @@ Rectangle {
 
     Image {
         id: left
-        width: RCS.handleWidth
-        height: RCS.handleHeight / 1.5
+        width: RCS.handleWidth / theScale
+        height: RCS.handleHeight / 1.5 / theScale
         anchors.horizontalCenter: parent.left
         anchors.verticalCenter: parent.verticalCenter
         source: "qrc:/images/ActionResizeHorizontally.svg"
@@ -105,8 +106,8 @@ Rectangle {
 
     Image {
         id: right
-        width: RCS.handleWidth
-        height: RCS.handleHeight / 1.5
+        width: RCS.handleWidth / theScale
+        height: RCS.handleHeight / 1.5 / theScale
         anchors.horizontalCenter: parent.right
         anchors.verticalCenter: parent.verticalCenter
         source: "qrc:/images/ActionResizeHorizontally.svg"
@@ -129,8 +130,8 @@ Rectangle {
 
     Image {
         id: top
-        width: RCS.handleWidth / 1.5
-        height: RCS.handleHeight
+        width: RCS.handleWidth / 1.5 / theScale
+        height: RCS.handleHeight / theScale
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.top
         source: "qrc:/images/ActionResizeVertically.svg"
@@ -154,8 +155,8 @@ Rectangle {
 
     Image {
         id: bottom
-        width: RCS.handleWidth / 1.5
-        height: RCS.handleHeight
+        width: RCS.handleWidth / 1.5 / theScale
+        height: RCS.handleHeight / theScale
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.bottom
         source: "qrc:/images/ActionResizeVertically.svg"

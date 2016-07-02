@@ -19,8 +19,8 @@ Image {
             target: parent
             minimumX: 0
             minimumY: 0
-            maximumX: theScene.width - parent.width
-            maximumY: theScene.height - parent.height
+            maximumX: theScene.width/theScale - parent.width
+            maximumY: theScene.height/theScale - parent.height
             smoothed: true
         }
         onPressed: {

@@ -5,14 +5,24 @@ import "qrc:/content"
 
 Item {
     id: theScene
+    objectName: "root"
+    width: 10000
+    height: 5000
 
     property var selection: undefined
+    property real theScale: 1.0
 
-    width: 1200
-    height: 500
+    transform: [
+        Scale {
+            id: scale
+            xScale: theScale
+            yScale: theScale
+        }
+    ]
 
     Rectangle {
-        id: image1
+        id: background
+        objectName: "background"
         gradient: Gradient {
             GradientStop {
                 position: 0.00;
@@ -27,7 +37,11 @@ Item {
                 color: "#175800";
             }
         }
-        anchors.fill: parent
+
+        x: 0
+        y: 0
+        width: 1000
+        height: 500
 
         MouseArea {
             anchors.fill: parent
@@ -58,5 +72,4 @@ Item {
         x: 250
         y: 230
     }
-
 }
