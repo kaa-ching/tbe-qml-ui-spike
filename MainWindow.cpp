@@ -9,10 +9,11 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    theRCS(this)
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    theRCSPtr = new ResolutionConversionSingleton(this);
 
     qmlRegisterType<ViewItem>("TBEView", 1, 0, "ViewItem");
     qmlRegisterSingletonType<ResolutionConversionSingleton>("TBEView", 1, 0, "RCS", ResolutionConversionSingleton::RCS_provider);

@@ -26,7 +26,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    ResolutionConversionSingleton theRCS;
+    /// pointer to our "singleton" that handles resolution and coordinate conversion
+    ResolutionConversionSingleton* theRCSPtr;
 };
 
 #endif // MAINWINDOW_H
