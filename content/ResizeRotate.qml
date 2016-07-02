@@ -29,8 +29,8 @@ Rectangle {
     Image {
         // TODO/FIXME: I want to redo this to work like PowerPoint: move mouse at will, but always rotate in 15 degree steps
         id: rotateLeft
-        width: RCS.getHandleWidth()
-        height: RCS.getHandleHeight()
+        width: RCS.handleWidth
+        height: RCS.handleHeight
         anchors.horizontalCenter: parent.left
         anchors.verticalCenter: parent.top
         source: "qrc:/images/ActionRotateLeft.svg"
@@ -46,10 +46,10 @@ Rectangle {
     Image {
         // TODO/FIXME: I hate the fact that I cannot use a tooltip to highlight the double clicking
         id: deleteItem
-        width: RCS.getHandleWidth()
-        height: RCS.getHandleHeight()
+        width: RCS.handleWidth
+        height: RCS.handleHeight
         anchors.right: rotateLeft.left
-        anchors.rightMargin: RCS.getHandleWidth() / 2.0
+        anchors.rightMargin: RCS.handleWidth / 2.0
         anchors.verticalCenter: rotateLeft.verticalCenter
         source: "qrc:/images/ActionDelete.svg"
 
@@ -64,8 +64,8 @@ Rectangle {
 
     Image {
         id: rotateright
-        width: RCS.getHandleWidth()
-        height: RCS.getHandleHeight()
+        width: RCS.handleWidth
+        height: RCS.handleHeight
         anchors.horizontalCenter: parent.right
         anchors.verticalCenter: parent.top
         source: "qrc:/images/ActionRotateLeft.svg"
@@ -81,8 +81,8 @@ Rectangle {
 
     Image {
         id: left
-        width: RCS.getHandleWidth()
-        height: RCS.getHandleHeight() / 1.5
+        width: RCS.handleWidth
+        height: RCS.handleHeight / 1.5
         anchors.horizontalCenter: parent.left
         anchors.verticalCenter: parent.verticalCenter
         source: "qrc:/images/ActionResizeHorizontally.svg"
@@ -105,8 +105,8 @@ Rectangle {
 
     Image {
         id: right
-        width: RCS.getHandleWidth()
-        height: RCS.getHandleHeight() / 1.5
+        width: RCS.handleWidth
+        height: RCS.handleHeight / 1.5
         anchors.horizontalCenter: parent.right
         anchors.verticalCenter: parent.verticalCenter
         source: "qrc:/images/ActionResizeHorizontally.svg"
@@ -129,8 +129,8 @@ Rectangle {
 
     Image {
         id: top
-        width: RCS.getHandleWidth() / 1.5
-        height: RCS.getHandleHeight()
+        width: RCS.handleWidth / 1.5
+        height: RCS.handleHeight
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.top
         source: "qrc:/images/ActionResizeVertically.svg"
@@ -154,8 +154,8 @@ Rectangle {
 
     Image {
         id: bottom
-        width: RCS.getHandleWidth() / 1.5
-        height: RCS.getHandleHeight()
+        width: RCS.handleWidth / 1.5
+        height: RCS.handleHeight
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.bottom
         source: "qrc:/images/ActionResizeVertically.svg"
@@ -164,7 +164,7 @@ Rectangle {
             anchors.fill: parent
             drag{ target: parent; axis: Drag.YAxis }
             onMouseYChanged: {
-                if(drag.active){
+                if(drag.active) {
                     var myMouseY = mouseY
                     if (theDecorator.height + mouseY < minSize)
                         myMouseY = minSize - theDecorator.height

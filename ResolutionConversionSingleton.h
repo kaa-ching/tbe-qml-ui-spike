@@ -14,10 +14,10 @@ class ResolutionConversionSingleton : public QObject
 public:
     explicit ResolutionConversionSingleton(QObject *parent = nullptr);
 
-    /// @returns Width of a handle in pixels, depending on the DPI count of the display.
-    Q_INVOKABLE int getHandleWidth();
-    /// @returns Width of a handle in pixels, depending on the DPI count of the display.
-    Q_INVOKABLE int getHandleHeight();
+    virtual ~ResolutionConversionSingleton();
+
+    Q_PROPERTY(int handleWidth MEMBER theHandleWidth NOTIFY handleWidthChanged);
+    Q_PROPERTY(int handleHeight MEMBER theHandleHeight NOTIFY handleHeightChanged);
 
     static qreal convertPixels2H(qreal aPixelH);
     static qreal convertPixels2W(qreal aPixelW);
@@ -36,6 +36,8 @@ public:
     { Q_UNUSED(engine); Q_UNUSED(scriptEngine); return me(); }
 
 signals:
+    void handleWidthChanged();
+    void handleHeightChanged();
 
 public slots:
     void slot_screenAdded(QScreen *aScreen);
@@ -45,6 +47,9 @@ public slots:
 private:
     QMainWindow* theMainWindowPtr;
     QScreen*     theActualQScreenPtr;
+
+    int theHandleWidth;
+    int theHandleHeight;
 };
 
 #endif // RESOLUTIONCONVERSIONSINGLETON_H
