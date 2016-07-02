@@ -7,6 +7,7 @@
 class QScreen;
 class QQmlEngine;
 class QJSEngine;
+class ResizingQuickWidget;
 class World;
 
 
@@ -14,7 +15,7 @@ class ResolutionConversionSingleton : public QObject
 {
     Q_OBJECT
 public:
-    explicit ResolutionConversionSingleton(QObject *parent = nullptr);
+    explicit ResolutionConversionSingleton(ResizingQuickWidget *parent);
 
     virtual ~ResolutionConversionSingleton();
 

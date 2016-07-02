@@ -1,4 +1,5 @@
 #include "ResolutionConversionSingleton.h"
+#include "ResizingQuickWidget.h"
 #include "World.h"
 #include <cassert>
 
@@ -15,7 +16,7 @@ static const int   theHandleMinPix = 18; // never make handle smaller than 18 pi
 
 static ResolutionConversionSingleton *theRCSPtr = nullptr;
 
-ResolutionConversionSingleton::ResolutionConversionSingleton(QObject *parent)
+ResolutionConversionSingleton::ResolutionConversionSingleton(ResizingQuickWidget *parent)
     : QObject(parent),
       theActualQScreenPtr(nullptr)
 {

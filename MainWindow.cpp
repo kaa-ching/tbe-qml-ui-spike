@@ -13,15 +13,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    theRCSPtr = new ResolutionConversionSingleton(ui->quickWidget);
-
     qmlRegisterType<ViewItem>("TBEView", 1, 0, "ViewItem");
-    qmlRegisterSingletonType<ResolutionConversionSingleton>("TBEView", 1, 0, "RCS", ResolutionConversionSingleton::RCS_provider);
     ui->quickWidget->setSource(QStringLiteral("qrc:/main.qml"));
 
     // load our objects into the view
     World myWorld(6,3);
-    theRCSPtr->adjustToWorldSize(myWorld);
+    ResolutionConversionSingleton::me()->adjustToWorldSize(myWorld);
 
 // link with UI not implemented yet:
 //    AbstractObject myObject1("BowlingPin", Position(2, 3, 0.2), 0.12, 0.34);

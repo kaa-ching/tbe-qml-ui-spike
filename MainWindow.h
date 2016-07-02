@@ -1,8 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "ResolutionConversionSingleton.h"
-
 #include <QMainWindow>
 #include <QtQuickWidgets/QQuickWidget>
 
@@ -25,9 +23,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-
-    /// pointer to our "singleton" that handles resolution and coordinate conversion
-    ResolutionConversionSingleton* theRCSPtr;
 };
 
 #endif // MAINWINDOW_H

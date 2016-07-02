@@ -1,4 +1,5 @@
 #include "ResizingQuickWidget.h"
+#include "ResolutionConversionSingleton.h"
 
 #include <QQuickItem>
 
@@ -8,6 +9,10 @@ ResizingQuickWidget::ResizingQuickWidget(QWidget *parent)
 {
     // note: this will only adjust the root object, it won't scale all objects in our view.
     setResizeMode(QQuickWidget::SizeRootObjectToView);
+
+    // register our resolution/scaling singleton
+    theRCSPtr = new ResolutionConversionSingleton(this);
+    qmlRegisterSingletonType<ResolutionConversionSingleton>("TBEView", 1, 0, "RCS", ResolutionConversionSingleton::RCS_provider);
 }
 
 int ResizingQuickWidget::heightForWidth(int w) const
