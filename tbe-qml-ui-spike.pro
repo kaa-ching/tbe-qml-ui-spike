@@ -29,4 +29,4 @@ HEADERS += \
     Position.h \
     ResolutionConversionSingleton.h
 
-FORMS    += mainwindow.ui
+FORMS    += MainWindow.ui
