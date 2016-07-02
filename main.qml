@@ -8,6 +8,9 @@ Item {
 
     property var selection: undefined
 
+    width: 1200
+    height: 500
+
     Rectangle {
         id: image1
         gradient: Gradient {

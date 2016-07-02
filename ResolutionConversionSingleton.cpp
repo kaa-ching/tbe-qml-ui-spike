@@ -1,4 +1,5 @@
 #include "ResolutionConversionSingleton.h"
+#include "World.h"
 #include <cassert>
 
 #include <QWindow>
@@ -49,6 +50,12 @@ ResolutionConversionSingleton::~ResolutionConversionSingleton()
 {
     theMainWindowPtr = nullptr;
     theActualQScreenPtr  = nullptr;
+}
+
+void ResolutionConversionSingleton::adjustToWorldSize(const World &aWorldPtr)
+{
+    theWorldHeight = aWorldPtr.getHeight();
+    theWorldWidth  = aWorldPtr.getWidth();
 }
 
 

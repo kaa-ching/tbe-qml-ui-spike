@@ -18,6 +18,9 @@ public:
 
     bool isColliding(AbstractObject* anAOPtr);
 
+    float getWidth() const {return theWidth; }
+    float getHeight() const { return theHeight; }
+
 private:
     std::list<AbstractObject*> theAOList;
 

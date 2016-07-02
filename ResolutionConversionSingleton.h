@@ -7,6 +7,8 @@
 class QScreen;
 class QQmlEngine;
 class QJSEngine;
+class World;
+
 
 class ResolutionConversionSingleton : public QObject
 {
@@ -18,6 +20,8 @@ public:
 
     Q_PROPERTY(int handleWidth MEMBER theHandleWidth NOTIFY handleWidthChanged);
     Q_PROPERTY(int handleHeight MEMBER theHandleHeight NOTIFY handleHeightChanged);
+
+    void adjustToWorldSize(const World& aWorldPtr);
 
     static qreal convertPixels2H(qreal aPixelH);
     static qreal convertPixels2W(qreal aPixelW);
@@ -48,8 +52,11 @@ private:
     QMainWindow* theMainWindowPtr;
     QScreen*     theActualQScreenPtr;
 
-    int theHandleWidth;
     int theHandleHeight;
+    int theHandleWidth;
+
+    float theWorldHeight;
+    float theWorldWidth;
 };
 
 #endif // RESOLUTIONCONVERSIONSINGLETON_H
