@@ -10,6 +10,7 @@ SOURCES += main.cpp \
     ViewItem.cpp \
     World.cpp \
     Position.cpp \
+    ResizingQuickWidget.cpp \
     ResolutionConversionSingleton.cpp
 
 RESOURCES += qml.qrc
@@ -27,6 +28,7 @@ HEADERS += \
     ViewItem.h \
     World.h \
     Position.h \
+    ResizingQuickWidget.h \
     ResolutionConversionSingleton.h
 
 FORMS    += MainWindow.ui

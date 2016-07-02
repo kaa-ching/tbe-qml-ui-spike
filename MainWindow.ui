@@ -18,7 +18,7 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QQuickWidget" name="quickWidget">
+       <widget class="ResizingQuickWidget" name="quickWidget">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -102,9 +102,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>QQuickWidget</class>
+   <class>ResizingQuickWidget</class>
    <extends>QWidget</extends>
-   <header>QtQuickWidgets/QQuickWidget</header>
+   <header>ResizingQuickWidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
