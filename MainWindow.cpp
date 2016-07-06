@@ -14,14 +14,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     // load our objects into the view
-    World myWorld(10,2);
+    World myWorld(5,2);
     ResolutionConversionSingleton::me()->adjustToWorldSize(myWorld);
     qmlRegisterType<ViewItem>("TBEView", 1, 0, "ViewItem");
     ui->quickWidget->setSource(QStringLiteral("qrc:/main.qml"));
 
 // link with UI not implemented yet:
-//    AbstractObject myObject1("BowlingPin", Position(2, 3, 0.2), 0.12, 0.34);
-//    myWorld.addObject(&myObject1);
+    AbstractObject myObject1("BowlingPin", Position(2, 3, 0.2), 0.12, 0.34);
+    myWorld.addObject(&myObject1);
 //    AbstractObject myObject2("used_wood_bar", Position(2, 2.5, 0.0), 1.0, 0.1);
 //    myWorld.addObject(&myObject2);
 //    AbstractObject myObject3("used_wood_bar", Position(1, 2.0, 0.0), 2.0, 0.5);

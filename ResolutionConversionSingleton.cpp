@@ -23,13 +23,14 @@ ResolutionConversionSingleton::ResolutionConversionSingleton(ResizingQuickWidget
 {
     theRCSPtr = this;
 
-    // TODO/FIXME: if there's more than one screen, which one are we on?
     theActualQScreenPtr = QApplication::primaryScreen();
     assert (theActualQScreenPtr != nullptr);
     printf("  physicX DPI: %f\n", theActualQScreenPtr->physicalDotsPerInchX());
     printf("  physicY DPI: %f\n", theActualQScreenPtr->physicalDotsPerInchY());
 
     theRenderPixels = theActualQScreenPtr->availableGeometry().width();
+
+    // Pre-calculate the handle sizes, they normally won't change during play...
     theHandleHeight = theHandleSizeMM / 25.4 * theActualQScreenPtr->physicalDotsPerInchX();
     if (theHandleHeight < theHandleMinPix)
         theHandleHeight = theHandleMinPix;
@@ -37,8 +38,8 @@ ResolutionConversionSingleton::ResolutionConversionSingleton(ResizingQuickWidget
     if (theHandleWidth < theHandleMinPix)
         theHandleWidth = theHandleMinPix;
 
-    connect (parent, &ResizingQuickWidget::wasResized,
-             this, &ResolutionConversionSingleton::slot_RQW_resized);
+//    connect (parent, &ResizingQuickWidget::wasResized,
+//             this, &ResolutionConversionSingleton::slot_RQW_resized);
 }
 
 
@@ -58,50 +59,42 @@ void ResolutionConversionSingleton::adjustToWorldSize(const World &aWorldPtr)
 
 qreal ResolutionConversionSingleton::convertPixels2H(qreal aPixelH)
 {
-    // TODO/FIXME: implement
-    return aPixelH/50.;
+    return aPixelH / (me()->theRenderPixels/me()->aspectRatio()) * me()->theWorldHeight;
 }
 
 qreal ResolutionConversionSingleton::convertPixels2W(qreal aPixelW)
 {
-    // there's no
-    return convertPixels2X(aPixelW);
+    return aPixelW / me()->theRenderPixels * me()->theWorldWidth;
 }
 
 qreal ResolutionConversionSingleton::convertPixels2X(qreal aPixelX)
 {
-    // TODO/FIXME: implement
-    return aPixelX/50.;
+    return convertPixels2W(aPixelX);
 }
 
 qreal ResolutionConversionSingleton::convertPixels2Y(qreal aPixelY)
 {
-    // TODO/FIXME: implement
-    return convertPixels2H(500.-aPixelY);
+    return convertPixels2H(me()->theRenderPixels/me()->aspectRatio() - aPixelY);
 }
 
 qreal ResolutionConversionSingleton::convertH2Pixels(qreal anSI_H)
 {
-    // TODO/FIXME: implement
-    return anSI_H*50;
+    return anSI_H/me()->theWorldHeight * (me()->theRenderPixels/me()->aspectRatio());
 }
 
 qreal ResolutionConversionSingleton::convertW2Pixels(qreal anSI_W)
 {
-    // TODO/FIXME: implement
-    return anSI_W*50.0;
+    return anSI_W/me()->theWorldWidth * me()->theRenderPixels;
 }
 
 qreal ResolutionConversionSingleton::convertX2Pixels(qreal anSI_X)
 {
-    // TODO/FIXME: implement
-    return anSI_X*50;
+    return convertH2Pixels(anSI_X);
 }
 
 qreal ResolutionConversionSingleton::convertY2Pixels(qreal anSI_Y)
 {
-    // TODO/FIXME: implement
-    return 500-convertH2Pixels(anSI_Y);
+    return me()->theRenderPixels/me()->aspectRatio() - convertH2Pixels(anSI_Y);
 }
 
 
@@ -111,10 +104,11 @@ ResolutionConversionSingleton* ResolutionConversionSingleton::me()
     return theRCSPtr;
 }
 
-void ResolutionConversionSingleton::slot_RQW_resized(QSize aNewSize)
-{
-    printf("RCS::slot_RQW_resized() called\n");
-    // We want to draw World::width() on aNewSize.width() pixels which should
-    // be the same as drawing World::height() on aNewSize.height() pixels.
-    // Note that we already limit the RQW in aspect ratio.
-}
+//void ResolutionConversionSingleton::slot_RQW_resized(QSize aNewSize)
+//{
+//    printf("RCS::slot_RQW_resized() called\n");
+//    // We want to draw World::width() meters on aNewSize.width() pixels which should
+//    // be the same as drawing World::height() meters on aNewSize.height() pixels.
+//    // Note that we already limit the RQW in aspect ratio.
+//    // But we get here because aNewSize [pixels] has changed.
+//}

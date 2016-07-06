@@ -54,7 +54,7 @@ signals:
     void aspectRatioChanged();
 
 public slots:
-    void slot_RQW_resized(QSize aNewSize);
+//    void slot_RQW_resized(QSize aNewSize);
 
 private:
     QMainWindow* theMainWindowPtr;
@@ -74,6 +74,9 @@ private:
 
     float theWorldHeight;
     float theWorldWidth;
+
+//    int theWidgetHeight;
+//    int theWidgetWidth;
 };
 
 #endif // RESOLUTIONCONVERSIONSINGLETON_H
