@@ -6,11 +6,13 @@ import "qrc:/content"
 Item {
     id: theScene
     objectName: "root"
-    width: 10000
-    height: 5000
+
+    width: RCS.renderPixels
+    height: (RCS.renderPixels/RCS.aspectRatio)
 
     property var selection: undefined
     property real theScale: 1.0
+
 
     transform: [
         Scale {
@@ -40,8 +42,8 @@ Item {
 
         x: 0
         y: 0
-        width: 1000
-        height: 500
+        width: RCS.renderPixels
+        height: (RCS.renderPixels/RCS.aspectRatio)
 
         MouseArea {
             anchors.fill: parent
@@ -52,20 +54,20 @@ Item {
         }
     }
 
-    ViewObject {
-        id: wall1
-        source: "qrc:/images/oldbrick.jpg"
-        width: 80
-        height: 200
-        x: 120
-        y: 130
-    }
+//    ViewObject {
+//        id: wall1
+//        source: "qrc:/images/oldbrick.jpg"
+//        width: 400
+//        height: 500
+//        x: 1200
+//        y: 1300
+//    }
 
     ViewObject {
         id: wall2
         source: "qrc:/images/oldbrick.jpg"
-        width: 80
-        height: 200
+        width: 800
+        height: 300
         fillMode: Image.Tile
         horizontalAlignment: Image.AlignLeft
         verticalAlignment: Image.AlignTop

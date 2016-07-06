@@ -18,21 +18,18 @@ static ResolutionConversionSingleton *theRCSPtr = nullptr;
 
 ResolutionConversionSingleton::ResolutionConversionSingleton(ResizingQuickWidget *parent)
     : QObject(parent),
-      theActualQScreenPtr(nullptr)
+      theActualQScreenPtr(nullptr),
+      theWorldHeight(1.0), theWorldWidth(1.0)
 {
     theRCSPtr = this;
 
     // TODO/FIXME: if there's more than one screen, which one are we on?
-    printf("number of screens: %d\n", QApplication::screens().count());
-    theActualQScreenPtr = QApplication::screens().at(0);
+    theActualQScreenPtr = QApplication::primaryScreen();
     assert (theActualQScreenPtr != nullptr);
-    printf("  name:  '%s'\n", theActualQScreenPtr->name().toLatin1().constData());
-    printf("  logical DPI: %f\n", theActualQScreenPtr->logicalDotsPerInchX());
     printf("  physicX DPI: %f\n", theActualQScreenPtr->physicalDotsPerInchX());
     printf("  physicY DPI: %f\n", theActualQScreenPtr->physicalDotsPerInchY());
-    printf("  screen res: %dx%d pix\n", theActualQScreenPtr->availableSize().width(), theActualQScreenPtr->availableSize().height());
-    printf("  screen dim: %fx%f mm\n", theActualQScreenPtr->physicalSize().width(), theActualQScreenPtr->physicalSize().height());
 
+    theRenderPixels = theActualQScreenPtr->availableGeometry().width();
     theHandleHeight = theHandleSizeMM / 25.4 * theActualQScreenPtr->physicalDotsPerInchX();
     if (theHandleHeight < theHandleMinPix)
         theHandleHeight = theHandleMinPix;
@@ -40,10 +37,8 @@ ResolutionConversionSingleton::ResolutionConversionSingleton(ResizingQuickWidget
     if (theHandleWidth < theHandleMinPix)
         theHandleWidth = theHandleMinPix;
 
-    connect (qApp, &QGuiApplication::screenAdded,
-             this, &ResolutionConversionSingleton::slot_screenAdded);
-    connect (qApp, &QGuiApplication::screenRemoved,
-             this, &ResolutionConversionSingleton::slot_screenRemoved);
+    connect (parent, &ResizingQuickWidget::wasResized,
+             this, &ResolutionConversionSingleton::slot_RQW_resized);
 }
 
 
@@ -57,6 +52,7 @@ void ResolutionConversionSingleton::adjustToWorldSize(const World &aWorldPtr)
 {
     theWorldHeight = aWorldPtr.getHeight();
     theWorldWidth  = aWorldPtr.getWidth();
+    emit aspectRatioChanged();
 }
 
 
@@ -115,14 +111,10 @@ ResolutionConversionSingleton* ResolutionConversionSingleton::me()
     return theRCSPtr;
 }
 
-// TODO/FIXME: don't work on Linux
-void ResolutionConversionSingleton::slot_screenAdded(QScreen *aScreen)
+void ResolutionConversionSingleton::slot_RQW_resized(QSize aNewSize)
 {
-    printf("screen added\n");
-}
-
-// TODO/FIXME: don't work on Linux
-void ResolutionConversionSingleton::slot_screenRemoved(QScreen *aScreen)
-{
-    printf("screen deleted\n");
+    printf("RCS::slot_RQW_resized() called\n");
+    // We want to draw World::width() on aNewSize.width() pixels which should
+    // be the same as drawing World::height() on aNewSize.height() pixels.
+    // Note that we already limit the RQW in aspect ratio.
 }

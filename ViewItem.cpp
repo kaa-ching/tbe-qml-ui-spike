@@ -5,7 +5,7 @@ ViewItem::ViewItem(QQuickItem *aParentPtr,
                        AbstractObject *anAOPtr)
                        : QQuickItem(aParentPtr), theAbstractObjectPtr(anAOPtr)
 {
-    printf("hello from ViewItem::ViewItem\n");
+    // Nothing to do here...
 }
 
 
