@@ -69,16 +69,16 @@ Item {
 //        y: 1300
 //    }
 
-    ViewObject {
-        id: wall2
-        objectName: "wall2"
-        source: "qrc:/images/oldbrick.jpg"
-        width: 800
-        height: 300
-        fillMode: Image.Tile
-        horizontalAlignment: Image.AlignLeft
-        verticalAlignment: Image.AlignTop
-        x: 250
-        y: 230
-    }
+//    ViewObject {
+//        id: wall2
+//        objectName: "wall2"
+//        source: "qrc:/images/oldbrick.jpg"
+//        width: 800
+//        height: 300
+//        fillMode: Image.Tile
+//        horizontalAlignment: Image.AlignLeft
+//        verticalAlignment: Image.AlignTop
+//        x: 250
+//        y: 230
+//    }
 }
