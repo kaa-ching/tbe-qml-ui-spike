@@ -13,6 +13,12 @@ Item {
     property var selection: undefined
     property real theScale: 1.0
 
+    function createViewObject(aName) {
+        var QComponentForVO = Qt.createComponent("content/ViewObject.qml");
+        var myVO = QComponentForVO.createObject(theScene);
+        myVO.objectName = aName;
+        return true;
+    }
 
     transform: [
         Scale {
@@ -65,6 +71,7 @@ Item {
 
     ViewObject {
         id: wall2
+        objectName: "wall2"
         source: "qrc:/images/oldbrick.jpg"
         width: 800
         height: 300

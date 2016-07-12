@@ -6,6 +6,10 @@
 
 class AbstractObject;
 
+/// ViewItem is a member of the QML ViewObject class. We control the members
+/// of ViewItem from C++.
+/// @note The ViewItem is owned by the QQuickView, so you should pay attention
+///       whether a ViewItem is still alive when needed.
 class ViewItem : public QQuickItem
 {
     Q_OBJECT

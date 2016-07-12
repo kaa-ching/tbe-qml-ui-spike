@@ -7,11 +7,12 @@ CONFIG += c++11
 SOURCES += main.cpp \
     AbstractObject.cpp \
     MainWindow.cpp \
-    ViewItem.cpp \
-    World.cpp \
     Position.cpp \
     ResizingQuickWidget.cpp \
-    ResolutionConversionSingleton.cpp
+    ResolutionConversionSingleton.cpp \
+    ViewItem.cpp \
+    ViewItemFactory.cpp \
+    World.cpp
 
 RESOURCES += qml.qrc
 
@@ -25,10 +26,11 @@ HEADERS += \
     AbstractObject.h \
     MainWindow.h \
     Popup.h \
-    ViewItem.h \
-    World.h \
     Position.h \
     ResizingQuickWidget.h \
-    ResolutionConversionSingleton.h
+    ResolutionConversionSingleton.h \
+    ViewItem.h \
+    ViewItemFactory.h \
+    World.h
 
 FORMS    += MainWindow.ui

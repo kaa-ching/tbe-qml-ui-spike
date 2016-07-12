@@ -4,7 +4,9 @@
 #include "Popup.h"
 
 #include "AbstractObject.h"
+#include "ResizingQuickWidget.h"
 #include "ViewItem.h"
+#include "ViewItemFactory.h"
 #include "World.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -19,9 +21,13 @@ MainWindow::MainWindow(QWidget *parent) :
     qmlRegisterType<ViewItem>("TBEView", 1, 0, "ViewItem");
     ui->quickWidget->setSource(QStringLiteral("qrc:/main.qml"));
 
+    ViewItemFactory* myFactoryPtr = new ViewItemFactory(ui->quickWidget);
+
 // link with UI not implemented yet:
     AbstractObject myObject1("BowlingPin", Position(2, 3, 0.2), 0.12, 0.34);
     myWorld.addObject(&myObject1);
+
+    ViewItem* myVIPtr = myFactoryPtr->createViewItem(&myObject1);
 //    AbstractObject myObject2("used_wood_bar", Position(2, 2.5, 0.0), 1.0, 0.1);
 //    myWorld.addObject(&myObject2);
 //    AbstractObject myObject3("used_wood_bar", Position(1, 2.0, 0.0), 2.0, 0.5);

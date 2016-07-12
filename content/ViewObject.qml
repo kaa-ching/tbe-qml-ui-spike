@@ -11,9 +11,12 @@ Image {
 
     ViewItem {
         // nothing needed here?
+        id: theVI
+        objectName: "theVI"
     }
 
     MouseArea {
+        objectName: "theMA"
         anchors.fill: parent
         drag{
             target: parent
