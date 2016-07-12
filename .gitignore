@@ -4,4 +4,4 @@ build/
 moc_*.cpp
 qrc_*.cpp
 tbe-qml-ui-spike
-tbe-qml-ui-spike.pro.user.*
+tbe-qml-ui-spike.pro.user*
