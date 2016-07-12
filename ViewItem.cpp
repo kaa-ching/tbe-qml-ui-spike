@@ -1,34 +1,51 @@
 #include "AbstractObject.h"
 #include "ViewItem.h"
 
-ViewItem::ViewItem(QQuickItem *aParentPtr,
-                       AbstractObject *anAOPtr)
-                       : QQuickItem(aParentPtr), theAbstractObjectPtr(anAOPtr)
+ViewItem::ViewItem(QQuickItem *aParentPtr)
+                       : QQuickItem(aParentPtr),
+                         theAOPtr(nullptr)
 {
     // Nothing to do here...
 }
 
 
 void
-ViewItem::adjustObjectDrawing(qreal aWidth_SI, qreal aHeight_SI, const Position &aCenter)
+ViewItem::adjustObjectDrawingFromAO()
 {
+    assert(theAOPtr!=nullptr);
+
     // convert width and height from SI to pixels and set them
-    QSize mySize = Vector(aWidth_SI, aHeight_SI).toQSize();
+    QSize mySize = Vector(theAOPtr->theWidth, theAOPtr->theHeight).toQSize();
     parentItem()->setWidth(mySize.width());
     parentItem()->setHeight(mySize.height());
 
     // convert center position from SI to pixels and set the top-left position
-    parentItem()->setRotation(aCenter.angleInDegrees());
-    QPointF myCenter = aCenter.toQPointF();
-    parentItem()->setX(myCenter.x());
-    parentItem()->setY(myCenter.y());
+    parentItem()->setRotation(theAOPtr->thePos.angleInDegrees());
+    QPointF myCenter = theAOPtr->thePos.toQPointF();
+    qreal myHalfW =  mySize.width() / 2.;
+    qreal myHalfH =  mySize.height() / 2.;
+    parentItem()->setX(myCenter.x() - myHalfW);
+    parentItem()->setY(myCenter.y() - myHalfH);
+
+    // TODO: Frame number
+}
+
+void ViewItem::setAbstractObjectPtr(AbstractObject *anAOPtr)
+{
+    assert (anAOPtr != nullptr);
+    theAOPtr = anAOPtr;
+
+    // TODO: retrieve image info
+    //
+
+    adjustObjectDrawingFromAO();
 }
 
 
-bool ViewItem::wouldBeColliding()
+bool ViewItem::wouldBeColliding() const
 {
     // TODO: coordinate conversion
 
-    assert (Q_NULLPTR != theAbstractObjectPtr);
-    return theAbstractObjectPtr->isColliding(/*TODO: at Position XYAngle with size WxH */);
+    assert (theAOPtr != nullptr);
+    return theAOPtr->isColliding(/*TODO: at Position XYAngle with size WxH */);
 }

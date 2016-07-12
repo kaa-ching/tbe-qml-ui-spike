@@ -24,10 +24,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ViewItemFactory* myFactoryPtr = new ViewItemFactory(ui->quickWidget);
 
 // link with UI not implemented yet:
-    AbstractObject myObject1("BowlingPin", Position(2, 3, 0.2), 0.12, 0.34);
+    AbstractObject myObject1("BowlingPin", Position(0.20, 0.60, -PI/2.), 0.20, 0.60);
     myWorld.addObject(&myObject1);
 
-    ViewItem* myVIPtr = myFactoryPtr->createViewItem(&myObject1);
+    ViewItem* myVIPtr1 = myFactoryPtr->createViewItem(&myObject1);
+
 //    AbstractObject myObject2("used_wood_bar", Position(2, 2.5, 0.0), 1.0, 0.1);
 //    myWorld.addObject(&myObject2);
 //    AbstractObject myObject3("used_wood_bar", Position(1, 2.0, 0.0), 2.0, 0.5);

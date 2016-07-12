@@ -15,18 +15,27 @@ class ViewItem : public QQuickItem
     Q_OBJECT
 
 public:
-    explicit ViewItem(QQuickItem *aParentPtr = Q_NULLPTR, AbstractObject *anAOPtr = Q_NULLPTR);
+    explicit ViewItem(QQuickItem *aParentPtr = Q_NULLPTR);
 
-    /// based on changes in the underlying AbstractObject, adjust the image
-    /// by resizing and/or rotation. This is overkill for just moving...
-    /// @note This member should only be called by AbstractObject
-    /// @param aWidth_SI   width of object in meters
-    /// @param aHeight_SI  height of object in meters
-    /// @param aCenter     center of the object in meters/radians
-    virtual void adjustObjectDrawing(qreal aWidth_SI, qreal aHeight_SI, const Position &aCenter);
+//    /// based on changes in the underlying AbstractObject, adjust the image
+//    /// by resizing and/or rotation. This is overkill for just moving...
+//    /// @note This member should only be called by AbstractObject
+//    /// @param aWidth_SI   width of object in meters
+//    /// @param aHeight_SI  height of object in meters
+//    /// @param aCenter     center of the object in meters/radians
+//    virtual void adjustObjectDrawing(qreal aWidth_SI, qreal aHeight_SI, const Position &aCenter);
+
+    /// Update drawing of the object based on the contents in the provided
+    /// AbstractObject. Updated are: position (incl angle), width, height.
+    /// TODO: image frame number, ZValue.
+    void adjustObjectDrawingFromAO();
+
+    /// Set the AbstractObject, read info from it.
+    /// TODO: and retrieve the image information.
+    void setAbstractObjectPtr(AbstractObject *anAOPtr);
 
     /// Returns whether the object _at the current location_ would be colliding.
-    Q_INVOKABLE virtual bool wouldBeColliding();
+    Q_INVOKABLE virtual bool wouldBeColliding() const;
 
 signals:
     /// SIGNAL
@@ -39,9 +48,9 @@ public slots:
 
 private:
     /// because of the symbiosis between AbstractObject and ViewObject,
-    /// we're not storing the shared_ptr, but the real pointer
+    /// we're not storing the shared_ptr, but TODO: a weak pointer
     /// (otherwise, no AbstractObject would ever be cleaned away)
-    AbstractObject *theAbstractObjectPtr;
+    AbstractObject *theAOPtr;
 };
 
 #endif // VIEWITEM_H
