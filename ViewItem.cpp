@@ -27,12 +27,6 @@ ViewItem::adjustObjectDrawingFromAO()
     parentItem()->setX(myCenter.x() - myHalfW);
     parentItem()->setY(myCenter.y() - myHalfH);
 
-    // TODO: update isHResize / isVResize / isRotate
-    rand();
-    parentItem()->setProperty("isHResize", rand() % 2);
-    parentItem()->setProperty("isVResize", rand() % 2);
-    parentItem()->setProperty("isRotate", rand() % 2);
-
     // TODO: Frame number
 }
 
@@ -43,6 +37,13 @@ void ViewItem::setAbstractObjectPtr(AbstractObject *anAOPtr)
 
     // TODO: retrieve image info
     //
+
+    // TODO: update isHResize / isVResize / isRotate
+    // TODO: move this to setAbstractObjectPtr later - no need to redo this every time
+    rand();
+    parentItem()->setProperty("isHResize", rand() % 2);
+    parentItem()->setProperty("isVResize", rand() % 2);
+    parentItem()->setProperty("isRotate", rand() % 2);
 
     adjustObjectDrawingFromAO();
 }
