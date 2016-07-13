@@ -37,20 +37,12 @@ public:
     /// Returns whether the object _at the current location_ would be colliding.
     Q_INVOKABLE virtual bool wouldBeColliding() const;
 
-    Q_PROPERTY(bool isHResize MEMBER theIsHResize NOTIFY IsHResizeChanged)
-    Q_PROPERTY(bool isVResize MEMBER theIsVResize NOTIFY IsVResizeChanged)
-    Q_PROPERTY(bool isRotate  MEMBER theIsRotate  NOTIFY IsRotateChanged)
-
 signals:
     /// SIGNAL
     /// Emitted whenever properties of the object change.
     /// Used by the Level creator to adjust the EditObjectDialog.
     /// @param anAOPtr pointer to the AbstractObject underneath.
 //    void updateEditObjectDialog(AbstractObject *anAOPtr);
-
-    void IsHResizeChanged();
-    void IsVResizeChanged();
-    void IsRotateChanged();
 
 public slots:
 
@@ -59,10 +51,6 @@ private:
     /// we're not storing the shared_ptr, but TODO: a weak pointer
     /// (otherwise, no AbstractObject would ever be cleaned away)
     AbstractObject *theAOPtr;
-
-    bool theIsHResize;
-    bool theIsVResize;
-    bool theIsRotate;
 };
 
 #endif // VIEWITEM_H

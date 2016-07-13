@@ -9,6 +9,7 @@ Image {
     x: 120
     y: 130
 
+    // the is* properties are updated by the ViewItem
     property bool isHResize : false
     property bool isVResize : false
     property bool isRotate  : false
@@ -17,10 +18,6 @@ Image {
         // nothing needed here?
         id: theVI
         objectName: "theVI"
-
-        Binding { target: parent; property: "isHResize"; value: theVI.isHResize }
-        Binding { target: viewObject; property: "isVResize"; value: theVI.isVResize }
-        Binding { target: viewObject; property: "isRotate";  value: theVI.isRotate }
     }
 
     MouseArea {

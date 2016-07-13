@@ -3,10 +3,7 @@
 
 ViewItem::ViewItem(QQuickItem *aParentPtr)
                        : QQuickItem(aParentPtr),
-                         theAOPtr(nullptr),
-                         theIsHResize(true),
-                         theIsVResize(false),
-                         theIsRotate(true)
+                         theAOPtr(nullptr)
 {
     // Nothing to do here...
 }
@@ -32,12 +29,9 @@ ViewItem::adjustObjectDrawingFromAO()
 
     // TODO: update isHResize / isVResize / isRotate
     rand();
-    theIsHResize = rand() % 2;
-    theIsVResize = rand() % 2;
-    theIsRotate  = rand() % 2;
-    emit IsHResizeChanged();
-    emit IsVResizeChanged();
-    emit IsRotateChanged();
+    parentItem()->setProperty("isHResize", rand() % 2);
+    parentItem()->setProperty("isVResize", rand() % 2);
+    parentItem()->setProperty("isRotate", rand() % 2);
 
     // TODO: Frame number
 }
