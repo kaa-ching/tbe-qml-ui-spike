@@ -19,13 +19,13 @@ The goals of this "spike":
  * coordinate conversions
    * introduce DPI singleton that communicates with view
    * enhance Position class
+ * conditionals: only show horizontal arrows when hor resizing is allowed
 
 I'll leave it up to you to judge if the above succeeded.
 
 Still to be implemented:
  * collision detection, and how to visualize issues with that
  * another approach to adjusting rotation
- * conditionals: only show horizontal arrows when hor resizing is allowed
  * rotation should be taken into account when calculating drag borders
  * undo/redo
  * polymorphism
