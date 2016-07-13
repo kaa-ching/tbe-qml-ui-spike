@@ -3,7 +3,10 @@
 
 ViewItem::ViewItem(QQuickItem *aParentPtr)
                        : QQuickItem(aParentPtr),
-                         theAOPtr(nullptr)
+                         theAOPtr(nullptr),
+                         theIsHResize(true),
+                         theIsVResize(false),
+                         theIsRotate(true)
 {
     // Nothing to do here...
 }
@@ -26,6 +29,15 @@ ViewItem::adjustObjectDrawingFromAO()
     qreal myHalfH =  mySize.height() / 2.;
     parentItem()->setX(myCenter.x() - myHalfW);
     parentItem()->setY(myCenter.y() - myHalfH);
+
+    // TODO: update isHResize / isVResize / isRotate
+    rand();
+    theIsHResize = rand() % 2;
+    theIsVResize = rand() % 2;
+    theIsRotate  = rand() % 2;
+    emit IsHResizeChanged();
+    emit IsVResizeChanged();
+    emit IsRotateChanged();
 
     // TODO: Frame number
 }

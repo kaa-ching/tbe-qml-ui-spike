@@ -35,6 +35,7 @@ Rectangle {
         anchors.horizontalCenter: parent.left
         anchors.verticalCenter: parent.top
         source: "qrc:/images/ActionRotateLeft.svg"
+        visible: theDecorated.isRotate === true;
 
         MouseArea {
             anchors.fill: parent
@@ -71,6 +72,7 @@ Rectangle {
         anchors.verticalCenter: parent.top
         source: "qrc:/images/ActionRotateLeft.svg"
         mirror: true
+        visible: theDecorated.isRotate === true;
 
         MouseArea {
             anchors.fill: parent
@@ -87,6 +89,7 @@ Rectangle {
         anchors.horizontalCenter: parent.left
         anchors.verticalCenter: parent.verticalCenter
         source: "qrc:/images/ActionResizeHorizontally.svg"
+        visible: theDecorated.isHResize === true;
 
         MouseArea {
             anchors.fill: parent
@@ -111,6 +114,7 @@ Rectangle {
         anchors.horizontalCenter: parent.right
         anchors.verticalCenter: parent.verticalCenter
         source: "qrc:/images/ActionResizeHorizontally.svg"
+        visible: theDecorated.isHResize === true;
 
         MouseArea {
             anchors.fill: parent
@@ -135,6 +139,7 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.top
         source: "qrc:/images/ActionResizeVertically.svg"
+        visible: theDecorated.isVResize === true;
 
         MouseArea {
             anchors.fill: parent
@@ -160,6 +165,7 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.bottom
         source: "qrc:/images/ActionResizeVertically.svg"
+        visible: theDecorated.isVResize === true;
 
         MouseArea {
             anchors.fill: parent

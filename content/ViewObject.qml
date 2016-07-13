@@ -2,17 +2,25 @@ import QtQuick 2.0
 import TBEView 1.0
 
 Image {
-    id: floor1
+    id: viewObject
     source: "qrc:/images/used_wood_bar.png"
     width: 200
     height: 80
     x: 120
     y: 130
 
+    property bool isHResize : false
+    property bool isVResize : false
+    property bool isRotate  : false
+
     ViewItem {
         // nothing needed here?
         id: theVI
         objectName: "theVI"
+
+        Binding { target: parent; property: "isHResize"; value: theVI.isHResize }
+        Binding { target: viewObject; property: "isVResize"; value: theVI.isVResize }
+        Binding { target: viewObject; property: "isRotate";  value: theVI.isRotate }
     }
 
     MouseArea {
