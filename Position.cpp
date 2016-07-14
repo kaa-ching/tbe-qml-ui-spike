@@ -34,6 +34,13 @@ Position::Position (qreal anX, qreal aY, qreal anAngle)
     ; // nothing to do here, sorry...
 }
 
+Position::Position (const QRectF &aPoint, qreal anAngle)
+    : angle(anAngle)
+{
+    x = ResolutionConversionSingleton::convertPixels2X(aPoint.center().x());
+    y = ResolutionConversionSingleton::convertPixels2Y(aPoint.center().y());
+}
+
 Position::Position (const QPointF &aPoint, qreal anAngle)
     : angle(anAngle)
 {

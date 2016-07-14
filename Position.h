@@ -22,8 +22,9 @@
 //#include "tbe_global.h"
 #include <cassert>
 #include <cmath>
-#include <QtCore/QPointF>
-#include <QtCore/QSize>
+#include <QPointF>
+#include <QSize>
+#include <QRectF>
 
 #define PI 3.1415926535
 
@@ -129,8 +130,13 @@ public:
      */
     Position (qreal anX = NAN, qreal aY = NAN, qreal anAngle = 0.0);
 
+    /// Constructor, will create position at center of QRectF (and convert coordinates).
+    Position (const QRectF &aPoint, qreal anAngle = 0.0);
+    /// Constructor, will create position at aPoint (and convert coordinates).
     Position (const QPointF &aPoint, qreal anAngle = 0.0);
+    /// Constructor, will create position at aPoint (and NOT convert coordinates).
     Position (const Vector &aPoint, qreal anAngle = 0.0);
+    /// Constructor, will create position at aVec (and NOT convert coordinates).
     Position (const b2Vec2 &aVec, qreal anAngle = 0.0);
 
     // Public attributes
