@@ -16,24 +16,24 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     // load our objects into the view
-    World myWorld(5,2);
-    ResolutionConversionSingleton::me()->adjustToWorldSize(myWorld);
+    World* myWorldPtr = new World(5,2);
+    ResolutionConversionSingleton::me()->adjustToWorldSize(*myWorldPtr);
     qmlRegisterType<ViewItem>("TBEView", 1, 0, "ViewItem");
     ui->quickWidget->setSource(QStringLiteral("qrc:/main.qml"));
 
     ViewItemFactory* myFactoryPtr = new ViewItemFactory(ui->quickWidget);
 
-    AbstractObject myObject1("BowlingPin", Position(0.60, 0.20, -PI/2.), 0.20, 0.60);
-    myWorld.addObject(&myObject1);
-    ViewItem* myVIPtr1 = myFactoryPtr->createViewItem(&myObject1);
+    AbstractObject* myObject1 = new AbstractObject("BowlingPin", Position(0.60, 0.20, -PI/2.), 0.20, 0.60);
+    myWorldPtr->addObject(myObject1);
+    ViewItem* myVIPtr1 = myFactoryPtr->createViewItem(myObject1);
 
-    AbstractObject myObject2("used_wood_bar", Position(2, 1.5, 0.0), 1.0, 0.1);
-    myWorld.addObject(&myObject2);
-    ViewItem* myVIPtr2 = myFactoryPtr->createViewItem(&myObject2);
+    AbstractObject* myObject2 = new AbstractObject("used_wood_bar", Position(2, 1.5, 0.0), 1.0, 0.1);
+    myWorldPtr->addObject(myObject2);
+    ViewItem* myVIPtr2 = myFactoryPtr->createViewItem(myObject2);
 
-    AbstractObject myObject3("used_wood_bar", Position(3.9, 1.0, 0.0), 2.0, 0.5);
-    myWorld.addObject(&myObject3);
-    ViewItem* myVIPtr3 = myFactoryPtr->createViewItem(&myObject3);
+    AbstractObject* myObject3 = new AbstractObject("used_wood_bar", Position(3.9, 1.0, 0.0), 2.0, 0.5);
+    myWorldPtr->addObject(myObject3);
+    ViewItem* myVIPtr3 = myFactoryPtr->createViewItem(myObject3);
 }
 
 MainWindow::~MainWindow()
