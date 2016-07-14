@@ -11,6 +11,8 @@ ViewItem::ViewItem(QQuickItem *aParentPtr)
 }
 
 
+// TODO: create a destructor, because we need to take the AO from the world upon destruction.
+
 QRectF
 ViewItem::AABB()
 {
@@ -60,11 +62,11 @@ ViewItem::adjustObjectDrawingFromAO()
 bool
 ViewItem::isColliding()
 {
-    return isColliding(AABB());
+    return isColliding(AABB(), parentItem()->rotation() * PI / 180);
 }
 
 bool
-ViewItem::isColliding(QRectF anAABB)
+ViewItem::isColliding(const QRectF& anAABB, qreal anAngleRadians)
 {
     bool myResult = false;
 
@@ -81,11 +83,13 @@ ViewItem::isColliding(QRectF anAABB)
     if (anAABB.contains(myWidth,anAABB.center().y()))    myResult=true;
 
     //** check for collisions with any other objects
-    // TODO: coordinate conversion
-//    assert (theAOPtr != nullptr);
-//    if (theAOPtr->isColliding(/*TODO: at Position XYAngle with size WxH */))
-//        myResult = true;
-
+    if (theAOPtr != nullptr)
+    {
+        if (theAOPtr->wouldBeColliding( Position(anAABB, anAngleRadians),
+                                        ResolutionConversionSingleton::me()->convertPixels2W(anAABB.width()),
+                                        ResolutionConversionSingleton::me()->convertPixels2H(anAABB.height())))
+            myResult = true;
+    }
 
     if (myResult != wasColliding)
     {

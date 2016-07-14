@@ -12,12 +12,14 @@ AbstractObject::AbstractObject(const QString &anImageName, const Position &aPosi
 }
 
 
-bool AbstractObject::isColliding() {
+bool AbstractObject::wouldBeColliding(const Position& aPosition, float aWidth, float aHeight) const
+{
     assert(nullptr != theWorldPtr);
-    return theWorldPtr->isColliding(this);
+    return theWorldPtr->wouldBeColliding(this, aPosition, aWidth, aHeight);
 }
 
 
 ViewItem *AbstractObject::createViewObject() {
+    // TODO: call ViewItemFactory from here
     return nullptr;
 }

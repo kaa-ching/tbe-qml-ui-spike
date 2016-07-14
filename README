@@ -20,16 +20,17 @@ The goals of this "spike":
    * introduce DPI singleton that communicates with view
    * enhance Position class
  * conditionals: only show horizontal arrows when hor resizing is allowed
+ * collision detection, and how to visualize issues with that
+   * collisions with the borders of the view
+   * collisions with other objects (note that moves of objects are not taken into account yet)
 
 I'll leave it up to you to judge if the above succeeded.
 
 Still to be implemented:
- * collision detection, and how to visualize issues with that
-   * collisions with the borders of the view
-   * collisions with other objects
  * another approach to adjusting rotation
  * rotation should be taken into account when calculating drag borders
  * undo/redo
+   * should also take care of updating the AO after move/resize/rotate
  * polymorphism
    * butterfly, colamintbottle and penguin require animations
    * postit requires different clicking behavior

@@ -38,7 +38,7 @@ public:
 //    Q_PROPERTY (bool isColliding READ isColliding NOTIFY CollidingChanged);
 
     bool isColliding();
-    bool isColliding(QRectF anAABB);
+    bool isColliding(const QRectF& anAABB, qreal anAngleRadians);
 
     /// Returns an Axis-Aligned Bounding Box of the object.
     /// Use this for dragging: out-of-scene calculations.
