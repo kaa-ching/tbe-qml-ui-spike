@@ -35,8 +35,17 @@ public:
     void setAbstractObjectPtr(AbstractObject *anAOPtr);
 
     /// Returns whether the object _at the current location_ would be colliding.
-    Q_INVOKABLE virtual bool wouldBeColliding() const;
+//    Q_PROPERTY (bool isColliding READ isColliding NOTIFY CollidingChanged);
 
+    bool isColliding();
+    bool isColliding(QRectF anAABB);
+
+    /// Returns an Axis-Aligned Bounding Box of the object.
+    /// Use this for dragging: out-of-scene calculations.
+    /// TODO: For now, this is based on the assumption that all objects are rectangles.
+//    Q_PROPERTY(QRectF AABB READ AABB NOTIFY AABBChanged);
+
+    QRectF AABB();
 signals:
     /// SIGNAL
     /// Emitted whenever properties of the object change.
@@ -44,13 +53,21 @@ signals:
     /// @param anAOPtr pointer to the AbstractObject underneath.
 //    void updateEditObjectDialog(AbstractObject *anAOPtr);
 
+//    void AABBChanged();
+
 public slots:
+    /// SLOT, Signal from parent on any parameter change.
+    /// will trigger (if needed):
+    ///   * AABB recalculation
+    void parentParamChanged();
 
 private:
     /// because of the symbiosis between AbstractObject and ViewObject,
     /// we're not storing the shared_ptr, but TODO: a weak pointer
     /// (otherwise, no AbstractObject would ever be cleaned away)
     AbstractObject *theAOPtr;
+
+    mutable bool wasColliding;
 };
 
 #endif // VIEWITEM_H

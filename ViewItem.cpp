@@ -1,18 +1,45 @@
 #include "AbstractObject.h"
+#include "ResolutionConversionSingleton.h"
 #include "ViewItem.h"
 
 ViewItem::ViewItem(QQuickItem *aParentPtr)
                        : QQuickItem(aParentPtr),
-                         theAOPtr(nullptr)
+                         theAOPtr(nullptr),
+                         wasColliding(false)
 {
     // Nothing to do here...
 }
 
 
+QRectF
+ViewItem::AABB()
+{
+    // parentItem.boundingRect() only addresses the size, it doesn't have the coordinates.
+    QRectF myBB = parentItem()->boundingRect();
+    qreal  myCX  = parentItem()->x() + 0.5*myBB.width();
+    qreal  myCY  = parentItem()->y() + 0.5*myBB.height();
+    qreal  myA   = parentItem()->rotation() * PI / 180; // in radians
+
+    // adjusted (for rotation) width and height
+    qreal myAW = fabs(myBB.width()*cos(myA)) + fabs(myBB.height()*sin(myA));
+    qreal myAH = fabs(myBB.width()*sin(myA)) + fabs(myBB.height()*cos(myA));
+
+    QRectF myResult(myCX-.5*myAW, myCY-.5*myAH,
+                    myAW, myAH );
+    return myResult;
+}
+
 void
 ViewItem::adjustObjectDrawingFromAO()
 {
     assert(theAOPtr!=nullptr);
+
+    connect (parentItem(), SIGNAL(heightChanged()), this, SLOT(parentParamChanged()));
+    connect (parentItem(), SIGNAL(widthChanged()),  this, SLOT(parentParamChanged()));
+    connect (parentItem(), SIGNAL(xChanged()),      this, SLOT(parentParamChanged()));
+    connect (parentItem(), SIGNAL(yChanged()),      this, SLOT(parentParamChanged()));
+    connect (parentItem(), SIGNAL(zChanged()),      this, SLOT(parentParamChanged()));
+    connect (parentItem(), SIGNAL(rotationChanged()),this,SLOT(parentParamChanged()));
 
     // convert width and height from SI to pixels and set them
     QSize mySize = Vector(theAOPtr->theWidth, theAOPtr->theHeight).toQSize();
@@ -30,6 +57,52 @@ ViewItem::adjustObjectDrawingFromAO()
     // TODO: Frame number
 }
 
+bool
+ViewItem::isColliding()
+{
+    return isColliding(AABB());
+}
+
+bool
+ViewItem::isColliding(QRectF anAABB)
+{
+    bool myResult = false;
+
+    //** check for collisions with the widget boundaries
+    qreal myWidth = ResolutionConversionSingleton::me()->renderPixels();
+    qreal myHeight= ResolutionConversionSingleton::me()->renderPixels()/ResolutionConversionSingleton::me()->aspectRatio();
+    // left
+    if (anAABB.contains(0, anAABB.center().y()))         myResult=true;
+    // top
+    if (anAABB.contains(anAABB.center().x(), 0))         myResult=true;
+    // bottom
+    if (anAABB.contains(anAABB.center().x(), myHeight))  myResult=true;
+    // right
+    if (anAABB.contains(myWidth,anAABB.center().y()))    myResult=true;
+
+    //** check for collisions with any other objects
+    // TODO: coordinate conversion
+//    assert (theAOPtr != nullptr);
+//    if (theAOPtr->isColliding(/*TODO: at Position XYAngle with size WxH */))
+//        myResult = true;
+
+
+    if (myResult != wasColliding)
+    {
+        parentItem()->setProperty("isColliding", myResult);
+    }
+    wasColliding = myResult;
+    return myResult;
+}
+
+void
+ViewItem::parentParamChanged()
+{
+    // will adjust isColliding property in parentItem when needed
+    isColliding();
+}
+
+
 void ViewItem::setAbstractObjectPtr(AbstractObject *anAOPtr)
 {
     assert (anAOPtr != nullptr);
@@ -39,20 +112,10 @@ void ViewItem::setAbstractObjectPtr(AbstractObject *anAOPtr)
     //
 
     // TODO: update isHResize / isVResize / isRotate
-    // TODO: move this to setAbstractObjectPtr later - no need to redo this every time
     rand();
-    parentItem()->setProperty("isHResize", rand() % 2);
-    parentItem()->setProperty("isVResize", rand() % 2);
-    parentItem()->setProperty("isRotate", rand() % 2);
+    parentItem()->setProperty("isHResize", true); //rand() % 2);
+    parentItem()->setProperty("isVResize", true); // rand() % 2);
+    parentItem()->setProperty("isRotate", true); // rand() % 2);
 
     adjustObjectDrawingFromAO();
-}
-
-
-bool ViewItem::wouldBeColliding() const
-{
-    // TODO: coordinate conversion
-
-    assert (theAOPtr != nullptr);
-    return theAOPtr->isColliding(/*TODO: at Position XYAngle with size WxH */);
 }

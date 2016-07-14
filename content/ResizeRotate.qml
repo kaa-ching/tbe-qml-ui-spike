@@ -13,7 +13,8 @@ Rectangle {
         color: "black"
     }
 
-    color: "#354682B4"
+    color: theDecorated.isColliding ? "#80FF5050" : "#8050FF50"
+    visible: true
     rotation: rotationAngle
 
     // make sure theDecorated follows our changes (due to Resize or Rotate)

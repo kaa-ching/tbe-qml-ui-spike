@@ -13,6 +13,7 @@ Image {
     property bool isHResize : false
     property bool isVResize : false
     property bool isRotate  : false
+    property bool isColliding : false
 
     ViewItem {
         // nothing needed here?
@@ -25,10 +26,6 @@ Image {
         anchors.fill: parent
         drag{
             target: parent
-            minimumX: 0
-            minimumY: 0
-            maximumX: theScene.width/theScale - parent.width
-            maximumY: theScene.height/theScale - parent.height
             smoothed: true
         }
         onPressed: {
