@@ -18,7 +18,8 @@ public:
     void addObject(AbstractObject* anAOPtr);
 
     /// Checks whether object pointed to by anAOPtr would be colliding with any other objects
-    /// if it would be at position aPos with size aWidthxaHeight.
+    /// if it would be at position aPos with *AABB* size aWidthxaHeight
+    /// @note the angle in aPos is not used, as you already have to specify the AABB size here
     /// @returns true if this object would be colliding.
     bool wouldBeColliding(const AbstractObject* anAOPtr, const Position& aPos, float aWidth, float aHeight) const;
 

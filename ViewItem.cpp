@@ -20,7 +20,7 @@ ViewItem::AABB()
     QRectF myBB = parentItem()->boundingRect();
     qreal  myCX  = parentItem()->x() + 0.5*myBB.width();
     qreal  myCY  = parentItem()->y() + 0.5*myBB.height();
-    qreal  myA   = parentItem()->rotation() * PI / 180; // in radians
+    qreal  myA   = -parentItem()->rotation() * PI / 180; // in radians
 
     // adjusted (for rotation) width and height
     qreal myAW = fabs(myBB.width()*cos(myA)) + fabs(myBB.height()*sin(myA));
@@ -62,11 +62,11 @@ ViewItem::adjustObjectDrawingFromAO()
 bool
 ViewItem::isColliding()
 {
-    return isColliding(AABB(), parentItem()->rotation() * PI / 180);
+    return isColliding(AABB(), parentItem()->rotation());
 }
 
 bool
-ViewItem::isColliding(const QRectF& anAABB, qreal anAngleRadians)
+ViewItem::isColliding(const QRectF& anAABB, qreal anAngleDegrees)
 {
     bool myResult = false;
 
@@ -85,7 +85,7 @@ ViewItem::isColliding(const QRectF& anAABB, qreal anAngleRadians)
     //** check for collisions with any other objects
     if (theAOPtr != nullptr)
     {
-        if (theAOPtr->wouldBeColliding( Position(anAABB, anAngleRadians),
+        if (theAOPtr->wouldBeColliding( Position(anAABB, anAngleDegrees),
                                         ResolutionConversionSingleton::me()->convertPixels2W(anAABB.width()),
                                         ResolutionConversionSingleton::me()->convertPixels2H(anAABB.height())))
             myResult = true;

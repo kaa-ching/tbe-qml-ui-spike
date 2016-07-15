@@ -19,7 +19,7 @@ void World::addObject(AbstractObject *anAOPtr) {
     theAOList.push_back(anAOPtr);
 }
 
-bool World::wouldBeColliding(const AbstractObject *anAOPtr, const Position& aPos, float aWidth, float aHeight) const
+bool World::wouldBeColliding(const AbstractObject *anAOPtr, const Position& aPos, float aw, float ah) const
 {
     // We're going to implement the Axis-Aligned Bounding Box (AABB) collision strategy for now:
     // https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection .
@@ -29,11 +29,10 @@ bool World::wouldBeColliding(const AbstractObject *anAOPtr, const Position& aPos
 
     assert(nullptr != anAOPtr);
     assert(std::end(theAOList) != std::find(std::begin(theAOList), std::end(theAOList), anAOPtr));
-    // find the first colliding one
-    qreal ah = fabs(aHeight * cos(aPos.angle)) + fabs(aWidth * sin (aPos.angle));
-    qreal aw = fabs(aHeight * sin(aPos.angle)) + fabs(aWidth * cos (aPos.angle));
     qreal ax = aPos.x - aw/2.;
     qreal ay = aPos.y - ah/2.;
+
+    // find the first colliding one
     for(auto& i : theAOList) {
         if (i != anAOPtr) {
             qreal ih = fabs(i->theHeight * cos(i->thePos.angle)) + fabs(i->theWidth * sin (i->thePos.angle));

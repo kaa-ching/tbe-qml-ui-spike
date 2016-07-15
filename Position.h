@@ -42,10 +42,12 @@ class Position;
 //   - Vector is the TBE Model vector type
 //   - Position is the TBE Model "vector from (0,0) to center of object plus angle" type
 //
-// * QQuickView uses a PIXEL-based coordinate system
+// * QQuickWidget uses a PIXEL-based coordinate system
 //   A positive y is pointing down.
 //   (0,0) is top-left  *** (TODO/FIXME: maybe including the title bar, menu and toolbar?)
 //   (QQuickView::width, QQuickView::height) is the bottom-right
+//   Even worse: QQuickWidget assumes rotation to be positive CLOCKWISE,
+//   i.e. against normal mathematical definitions...
 //
 // - constructors with QPointF assume conversion from QQuickView to TBEModel
 // - toQPointF() members assume conversion from TBEModel to QQuickView
@@ -131,9 +133,9 @@ public:
     Position (qreal anX = NAN, qreal aY = NAN, qreal anAngle = 0.0);
 
     /// Constructor, will create position at center of QRectF (and convert coordinates).
-    Position (const QRectF &aPoint, qreal anAngle = 0.0);
+    Position (const QRectF &aPoint, qreal anAngleInDegrees = 0.0);
     /// Constructor, will create position at aPoint (and convert coordinates).
-    Position (const QPointF &aPoint, qreal anAngle = 0.0);
+    Position (const QPointF &aPoint, qreal anAngleInDegrees = 0.0);
     /// Constructor, will create position at aPoint (and NOT convert coordinates).
     Position (const Vector &aPoint, qreal anAngle = 0.0);
     /// Constructor, will create position at aVec (and NOT convert coordinates).
