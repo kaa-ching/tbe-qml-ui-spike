@@ -31,6 +31,7 @@ ViewItem::AABB()
     return myResult;
 }
 
+
 void
 ViewItem::adjustObjectDrawingFromAO()
 {
@@ -58,6 +59,20 @@ ViewItem::adjustObjectDrawingFromAO()
 
     // TODO: Frame number
 }
+
+
+ViewItem *ViewItem::findVIinVO(QQuickItem *anVOPtr)
+{
+    assert (anVOPtr!=nullptr);
+    ViewItem* myVIPtr = nullptr;
+    QList<QQuickItem*> myChilds = anVOPtr->childItems();
+    for (auto I : myChilds) {
+        if (I->objectName() == "theVI")
+            myVIPtr = qobject_cast<ViewItem*>(I);
+    }
+    return myVIPtr;
+}
+
 
 bool
 ViewItem::isColliding()

@@ -46,6 +46,11 @@ public:
 //    Q_PROPERTY(QRectF AABB READ AABB NOTIFY AABBChanged);
 
     QRectF AABB();
+
+    /// retrieves a pointer to the 'theVI' object inside a ViewObject
+    /// @returns nullptr if not found.
+    static ViewItem *findVIinVO(QQuickItem* anVOPtr);
+
 signals:
     /// SIGNAL
     /// Emitted whenever properties of the object change.
@@ -61,8 +66,9 @@ public slots:
     ///   * AABB recalculation
     void parentParamChanged();
 
-private:
-    /// because of the symbiosis between AbstractObject and ViewObject,
+public:
+//private:
+    /// because of the symbiosis between AbstractObject and ViewItem/ViewObject,
     /// we're not storing the shared_ptr, but TODO: a weak pointer
     /// (otherwise, no AbstractObject would ever be cleaned away)
     AbstractObject *theAOPtr;

@@ -23,13 +23,7 @@ ViewItem *ViewItemFactory::createViewItem(AbstractObject *anAOPtr)
 
     // Once we get here, there should now be a ViewObject with the name.
     QQuickItem *myVOPtr = theRQWPtr->rootObject()->findChild<QQuickItem*>(myMsg);
-    assert (myVOPtr!=nullptr);
-    ViewItem* myVIPtr = nullptr;
-    QList<QQuickItem*> myChilds = myVOPtr->childItems();
-    for (auto I : myChilds) {
-        if (I->objectName() == "theVI")
-            myVIPtr = qobject_cast<ViewItem*>(I);
-    }
+    ViewItem* myVIPtr = ViewItem::findVIinVO(myVOPtr);
     assert (myVIPtr!=nullptr);
 
     // Let's tell the ViewItem who's his friend, they'll together make sure
