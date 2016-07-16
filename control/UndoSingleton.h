@@ -67,11 +67,6 @@ public:
     /// currently active undo commands.
     static void push(AbstractUndoCommand *anAUCPtr);
 
-    /// This is a notification that the UndoCommand is deleted and
-    /// no longer exists - delist it from the
-    /// currently active undo commands.
-    static void notifyGone(AbstractUndoCommand *anAUCPtr);
-
     static QAction *createRedoAction ( QObject *parent, const QString &prefix = QString() );
     static QAction *createUndoAction ( QObject *parent, const QString &prefix = QString() );
 

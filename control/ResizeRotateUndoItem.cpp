@@ -20,6 +20,8 @@ ResizeRotateUndoItem::~ResizeRotateUndoItem()
     //*** Is changed? then push to undocommand stack
     if (theRRMUCPtr->isChanged())
         theRRMUCPtr->commit();
+    else
+        delete theRRMUCPtr;
 }
 
 

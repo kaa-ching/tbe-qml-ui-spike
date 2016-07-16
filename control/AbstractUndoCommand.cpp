@@ -35,7 +35,6 @@ AbstractUndoCommand::AbstractUndoCommand(AbstractObject *anAbstractObjectPtr,
 
 AbstractUndoCommand::~AbstractUndoCommand()
 {
-    UndoSingleton::notifyGone(this);
 }
 
 

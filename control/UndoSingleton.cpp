@@ -20,7 +20,6 @@
 #include "ResizeRotateMoveUndoCommand.h"
 
 static UndoSingleton *theUndoSingletonPtr = nullptr;
-static AbstractUndoCommand *theCurrentlyActiveUndoCommand = nullptr;
 
 
 UndoSingleton::UndoSingleton(void)
@@ -31,8 +30,6 @@ UndoSingleton::UndoSingleton(void)
 
 void UndoSingleton::clear()
 {
-    delete theCurrentlyActiveUndoCommand;
-    theCurrentlyActiveUndoCommand = nullptr;
     me()->theUndoStack.clear();
 }
 
@@ -79,9 +76,6 @@ UndoSingleton::createUndoCommand(AbstractObject* anAOPtr,
         // TODO/FIXME
         //break;
     }
-    if (theCurrentlyActiveUndoCommand != nullptr)
-        delete theCurrentlyActiveUndoCommand;
-    theCurrentlyActiveUndoCommand = myNewCommand;
     return myNewCommand;
 }
 
@@ -100,18 +94,10 @@ UndoSingleton *UndoSingleton::me(void)
 }
 
 
-void UndoSingleton::notifyGone(AbstractUndoCommand *anAUCPtr)
-{
-    if (anAUCPtr == theCurrentlyActiveUndoCommand)
-        theCurrentlyActiveUndoCommand = nullptr;
-}
-
-
 void UndoSingleton::push(AbstractUndoCommand *anAUCPtr)
 {
     printf("Undo Singleton: '%s'\n", anAUCPtr->text().toLatin1().constData());
     me()->theUndoStack.push(anAUCPtr);
-    notifyGone(anAUCPtr);
 }
 
 
