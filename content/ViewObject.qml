@@ -16,7 +16,6 @@ Image {
     property bool isColliding : false
 
     ViewItem {
-        // nothing needed here?
         id: theVI
         objectName: "theVI"
     }

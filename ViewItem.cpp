@@ -37,27 +37,29 @@ ViewItem::adjustObjectDrawingFromAO()
 {
     assert(theAOPtr!=nullptr);
 
-    connect (parentItem(), SIGNAL(heightChanged()), this, SLOT(parentParamChanged()));
-    connect (parentItem(), SIGNAL(widthChanged()),  this, SLOT(parentParamChanged()));
-    connect (parentItem(), SIGNAL(xChanged()),      this, SLOT(parentParamChanged()));
-    connect (parentItem(), SIGNAL(yChanged()),      this, SLOT(parentParamChanged()));
-    connect (parentItem(), SIGNAL(zChanged()),      this, SLOT(parentParamChanged()));
-    connect (parentItem(), SIGNAL(rotationChanged()),this,SLOT(parentParamChanged()));
-
     // convert width and height from SI to pixels and set them
     QSize mySize = Vector(theAOPtr->theWidth, theAOPtr->theHeight).toQSize();
     parentItem()->setWidth(mySize.width());
     parentItem()->setHeight(mySize.height());
 
     // convert center position from SI to pixels and set the top-left position
-    parentItem()->setRotation(theAOPtr->thePos.angleInDegrees());
-    QPointF myCenter = theAOPtr->thePos.toQPointF();
+    parentItem()->setRotation(theAOPtr->theCenter.angleInDegrees());
+    QPointF myCenter = theAOPtr->theCenter.toQPointF();
     qreal myHalfW =  mySize.width() / 2.;
     qreal myHalfH =  mySize.height() / 2.;
     parentItem()->setX(myCenter.x() - myHalfW);
     parentItem()->setY(myCenter.y() - myHalfH);
 
     // TODO: Frame number
+
+    // and make sure that we are updated whenever the UI changes a parameter,
+    // so we can update the AO and check for collisions
+    connect (parentItem(), SIGNAL(heightChanged()), this, SLOT(parentParamChanged()));
+    connect (parentItem(), SIGNAL(widthChanged()),  this, SLOT(parentParamChanged()));
+    connect (parentItem(), SIGNAL(xChanged()),      this, SLOT(parentParamChanged()));
+    connect (parentItem(), SIGNAL(yChanged()),      this, SLOT(parentParamChanged()));
+    connect (parentItem(), SIGNAL(zChanged()),      this, SLOT(parentParamChanged()));
+    connect (parentItem(), SIGNAL(rotationChanged()),this,SLOT(parentParamChanged()));
 }
 
 
@@ -117,8 +119,17 @@ ViewItem::isColliding(const QRectF& anAABB, qreal anAngleDegrees)
 void
 ViewItem::parentParamChanged()
 {
-    // will adjust isColliding property in parentItem when needed
+    //*** adjust isColliding property in parentItem when needed
     isColliding();
+
+    //*** update AO with new position/width/height
+    theAOPtr->theCenter = Position(QPointF(parentItem()->x(),
+                                           parentItem()->y()),
+                                   parentItem()->rotation());
+
+    Vector mySize(QPointF(parentItem()->width(),parentItem()->height()));
+    theAOPtr->theWidth = mySize.dx;
+    theAOPtr->theHeight= mySize.dy;
 }
 
 

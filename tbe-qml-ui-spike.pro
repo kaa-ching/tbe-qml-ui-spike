@@ -12,7 +12,11 @@ SOURCES += main.cpp \
     ResolutionConversionSingleton.cpp \
     ViewItem.cpp \
     ViewItemFactory.cpp \
-    World.cpp
+    World.cpp \
+    control/AbstractUndoCommand.cpp \
+    control/ResizeRotateUndoItem.cpp \
+    control/UndoSingleton.cpp \
+    control/ResizeRotateMoveUndoCommand.cpp
 
 RESOURCES += qml.qrc
 
@@ -31,6 +35,12 @@ HEADERS += \
     ResolutionConversionSingleton.h \
     ViewItem.h \
     ViewItemFactory.h \
-    World.h
+    World.h \
+    control/AbstractUndoCommand.h \
+    control/ResizeRotateUndoItem.h \
+    control/UndoSingleton.h \
+    control/ResizeRotateMoveUndoCommand.h
+
+INCLUDEPATH += control
 
 FORMS    += MainWindow.ui

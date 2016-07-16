@@ -1,21 +1,24 @@
 import QtQuick 2.4
 import TBEView 1.0
 
-Rectangle {
+ResizeRotateMoveUndoItem {
     id: theDecorator
     objectName: "theDecorator"
     property int minSize: 50
     property int rotationAngle: 0
-    property Item theDecorated: null
+//    property Item theDecorated: null
 
-    border {
-        width: 1
-        color: "black"
-    }
-
-    color: theDecorated.isColliding ? "#80FF5050" : "#8050FF50"
-    visible: true
     rotation: rotationAngle
+
+    Rectangle {
+        border {
+            width: 1
+            color: "black"
+        }
+        color: theDecorated.isColliding ? "#80FF5050" : "#8050FF50"
+        visible: true
+        anchors.fill: parent
+    }
 
     // make sure theDecorated follows our changes (due to Resize or Rotate)
     Binding { target: theDecorated; property: "x"; value: theDecorator.x }

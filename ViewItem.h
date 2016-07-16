@@ -34,17 +34,12 @@ public:
     /// TODO: and retrieve the image information.
     void setAbstractObjectPtr(AbstractObject *anAOPtr);
 
-    /// Returns whether the object _at the current location_ would be colliding.
-//    Q_PROPERTY (bool isColliding READ isColliding NOTIFY CollidingChanged);
-
     bool isColliding();
     bool isColliding(const QRectF& anAABB, qreal anAngleDegrees);
 
     /// Returns an Axis-Aligned Bounding Box of the object.
     /// Use this for dragging: out-of-scene calculations.
     /// TODO: For now, this is based on the assumption that all objects are rectangles.
-//    Q_PROPERTY(QRectF AABB READ AABB NOTIFY AABBChanged);
-
     QRectF AABB();
 
     /// retrieves a pointer to the 'theVI' object inside a ViewObject
@@ -52,18 +47,12 @@ public:
     static ViewItem *findVIinVO(QQuickItem* anVOPtr);
 
 signals:
-    /// SIGNAL
-    /// Emitted whenever properties of the object change.
-    /// Used by the Level creator to adjust the EditObjectDialog.
-    /// @param anAOPtr pointer to the AbstractObject underneath.
-//    void updateEditObjectDialog(AbstractObject *anAOPtr);
-
-//    void AABBChanged();
 
 public slots:
     /// SLOT, Signal from parent on any parameter change.
     /// will trigger (if needed):
     ///   * AABB recalculation
+    ///   * update the AbstractObject with new position data
     void parentParamChanged();
 
 public:

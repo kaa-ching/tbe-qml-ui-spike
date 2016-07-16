@@ -20,14 +20,49 @@ public:
 
     ViewItem* createViewObject();
 
+    /** returns the Name of the object, for users.
+     *  If a non-US locale is specified, the returned string
+     *  will already be translated
+     */
+    // TODO/FIXME: virtual const QString getName ( ) const = 0;
+    virtual const QString getName ( ) const
+        {return "BLOCK";}
+
+    // TODO/FIXME: rename to getCenterPos()
+    /// Get the Position of the object.
+    /// This is the "original" center, i.e. where the object will
+    /// be when not in simulation.
+    /// @returns the value of theCenter
+    virtual Position getOrigCenter ( ) const
+    {
+        return theCenter;
+    }
+
+    /// Get the value of theHeight
+    /// @return the value of theHeight
+    qreal getTheHeight ( ) const
+    {
+        return theHeight;
+    }
+
+    /// Get the value of theWidth
+    /// @return the value of theWidth
+    qreal getTheWidth ( ) const
+    {
+        return theWidth;
+    }
+
+
     QString theImageName;
 
-    Position thePos;
+private:
+    Position theCenter;
     float theWidth;
     float theHeight;
 
     World* theWorldPtr;
     friend class World;
+    friend class ViewItem;
 };
 
 #endif // ABSTRACTOBJECT_H

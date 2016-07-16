@@ -1,9 +1,12 @@
+#include <QtQml>
+
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
 #include "Popup.h"
 
 #include "AbstractObject.h"
+#include "ResizeRotateUndoItem.h"
 #include "ResizingQuickWidget.h"
 #include "ViewItem.h"
 #include "ViewItemFactory.h"
@@ -19,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     World* myWorldPtr = new World(5,2);
     ResolutionConversionSingleton::me()->adjustToWorldSize(*myWorldPtr);
     qmlRegisterType<ViewItem>("TBEView", 1, 0, "ViewItem");
+    qmlRegisterType<ResizeRotateUndoItem>("TBEView", 1, 0, "ResizeRotateMoveUndoItem");
     ui->quickWidget->setSource(QStringLiteral("qrc:/main.qml"));
 
     ViewItemFactory* myFactoryPtr = new ViewItemFactory(ui->quickWidget);

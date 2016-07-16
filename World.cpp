@@ -35,10 +35,10 @@ bool World::wouldBeColliding(const AbstractObject *anAOPtr, const Position& aPos
     // find the first colliding one
     for(auto& i : theAOList) {
         if (i != anAOPtr) {
-            qreal ih = fabs(i->theHeight * cos(i->thePos.angle)) + fabs(i->theWidth * sin (i->thePos.angle));
-            qreal iw = fabs(i->theHeight * sin(i->thePos.angle)) + fabs(i->theWidth * cos (i->thePos.angle));
-            qreal ix = i->thePos.x - iw/2.;
-            qreal iy = i->thePos.y - ih/2.;
+            qreal ih = fabs(i->theHeight * cos(i->theCenter.angle)) + fabs(i->theWidth * sin (i->theCenter.angle));
+            qreal iw = fabs(i->theHeight * sin(i->theCenter.angle)) + fabs(i->theWidth * cos (i->theCenter.angle));
+            qreal ix = i->theCenter.x - iw/2.;
+            qreal iy = i->theCenter.y - ih/2.;
             // thanks to the above short hand, this looks like the formula from the above link
             if ( ix < ax+aw &&
                  ix+iw > ax &&
