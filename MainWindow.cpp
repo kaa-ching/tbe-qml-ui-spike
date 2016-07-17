@@ -25,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
     qmlRegisterType<ResizeRotateUndoItem>("TBEView", 1, 0, "ResizeRotateMoveUndoItem");
     ui->quickWidget->setSource(QStringLiteral("qrc:/main.qml"));
 
+    setupView();
+
     ViewItemFactory* myFactoryPtr = new ViewItemFactory(ui->quickWidget);
 
     AbstractObject* myObject1 = new AbstractObject("BowlingPin", Position(0.60, 0.20, -PI/2.), 0.20, 0.60);
@@ -55,4 +57,22 @@ void MainWindow::on_actionAbout_triggered()
                    "(C) 2009,2010,2011,2012,2013,2015,2016 Klaas van Gend and many others<br><br>"
                    "Code licensed under GPL version 2 - <i>only</i>.<br>Levels and graphics may have different open/free licenses.<br><br>"
                    "See <a href=\"http://xxx/\">http://xxx/</a> for more info on this project."), this);
+}
+
+
+
+void MainWindow::setupView()
+{
+    // setup UndoGroup's QActions and add them to Edit menu
+    // note that this doesn't enable them yet, our ViewWorld should handle that...
+    QAction *myUndoActionPtr = UndoSingleton::createUndoAction(this);
+    myUndoActionPtr->setIcon(QIcon::fromTheme("edit-undo"));
+    myUndoActionPtr->setShortcut(tr("Ctrl+Z"));
+    ui->menuEdit->addAction(myUndoActionPtr);
+    QAction *myRedoActionPtr = UndoSingleton::createRedoAction(this);
+    myRedoActionPtr->setIcon(QIcon::fromTheme("edit-redo"));
+    QList<QKeySequence> redoShortcuts;
+    redoShortcuts << tr("Ctrl+Y") << tr("Shift+Ctrl+Z");
+    myRedoActionPtr->setShortcuts(redoShortcuts);
+    ui->menuEdit->addAction(myRedoActionPtr);
 }
