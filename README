@@ -23,13 +23,13 @@ The goals of this "spike":
  * collision detection, and how to visualize issues with that
    * collisions with the borders of the view
    * collisions with other objects (note that moves of objects are not taken into account yet)
+ * undo/redo
+   * should take care of updating the AO and VI for move/resize/rotate
 
 I'll leave it up to you to judge if the above succeeded.
 
 Still to be implemented:
- * undo/redo
-   * should take care of updating the AO and VI for move/resize/rotate
-   * delete undo
+ * delete undo
  * another approach to adjusting rotation
  * rotation should be taken into account when calculating drag borders
  * polymorphism
