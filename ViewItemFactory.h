@@ -19,6 +19,8 @@ class ViewItemFactory : public QObject
 public:
     explicit ViewItemFactory(QQuickWidget *parent = 0);
 
+    ~ViewItemFactory();
+
     /// Create a ViewObject (QML) and a ViewItem (C++) and make sure they get
     /// updated with the contents of anAOPtr.
     /// @param anAOPtr Pointer to an AbstractObject.  TODO: shared_ptr???

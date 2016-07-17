@@ -14,6 +14,12 @@ ViewItemFactory::ViewItemFactory(QQuickWidget *parent)
     theVIFPtr = this;
 }
 
+
+ViewItemFactory::~ViewItemFactory()
+{
+    theVIFPtr = nullptr;
+}
+
 ViewItem *ViewItemFactory::createViewItem(AbstractObject *anAOPtr)
 {
     // Create a ViewObject with name [hex representation of anAOPtr].
