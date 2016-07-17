@@ -28,6 +28,8 @@ public:
     // @note: this function is very likely expensive
     //bool doesViewItemStillExist(ViewItem* aPtr);
 
+    static ViewItemFactory* me();
+
 signals:
 
 public slots:

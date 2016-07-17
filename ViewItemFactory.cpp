@@ -4,11 +4,14 @@
 #include <QQmlComponent>
 #include "QDebug"
 
+static ViewItemFactory *theVIFPtr = nullptr;
+
 ViewItemFactory::ViewItemFactory(QQuickWidget *parent)
     : QObject(parent),
       theRQWPtr(parent)
 {
-    // nothing to do...
+    assert(nullptr == theVIFPtr);
+    theVIFPtr = this;
 }
 
 ViewItem *ViewItemFactory::createViewItem(AbstractObject *anAOPtr)
@@ -30,4 +33,10 @@ ViewItem *ViewItemFactory::createViewItem(AbstractObject *anAOPtr)
     // the item gets displayed correctly.
     myVIPtr->setAbstractObjectPtr(anAOPtr);
     return myVIPtr;
+}
+
+ViewItemFactory* ViewItemFactory::me()
+{
+    assert (theVIFPtr!=nullptr);
+    return theVIFPtr;
 }

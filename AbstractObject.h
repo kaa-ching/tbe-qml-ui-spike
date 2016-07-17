@@ -60,6 +60,8 @@ private:
     float theWidth;
     float theHeight;
 
+    ViewItem *theVIPtr;
+
     World* theWorldPtr;
     friend class World;
     friend class ViewItem;
