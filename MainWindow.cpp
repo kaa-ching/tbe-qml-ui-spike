@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setupView();
 
-    ViewItemFactory* myFactoryPtr = new ViewItemFactory(ui->quickWidget);
+    new ViewItemFactory(ui->quickWidget);
 
     AbstractObject* myObject1 = new AbstractObject("BowlingPin", Position(0.60, 0.20, -PI/2.), 0.20, 0.60);
     myWorldPtr->addObject(myObject1);
