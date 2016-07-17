@@ -20,3 +20,21 @@ bool ResizeRotateMoveUndoCommand::isChanged()
         return true;
     return false;
 }
+
+
+void ResizeRotateMoveUndoCommand::redo(void)
+{
+    theAOPtr->theCenter = theNewPos;
+    theAOPtr->theWidth  = theNewWidth;
+    theAOPtr->theHeight = theNewHeight;
+    AbstractUndoCommand::redo();
+}
+
+
+void ResizeRotateMoveUndoCommand::undo(void)
+{
+    theAOPtr->theCenter = theOrigPos;
+    theAOPtr->theWidth  = theOrigWidth;
+    theAOPtr->theHeight = theOrigHeight;
+    AbstractUndoCommand::undo();
+}

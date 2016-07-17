@@ -18,6 +18,7 @@
 
 #include "AbstractUndoCommand.h"
 #include "UndoSingleton.h"
+#include "ViewItem.h"
 
 AbstractUndoCommand::AbstractUndoCommand(AbstractObject *anAbstractObjectPtr,
                                          const QString &anUndoName,
@@ -46,19 +47,13 @@ void AbstractUndoCommand::commit(void)
 
 void AbstractUndoCommand::redo(void)
 {
-    printf("AUC::redo\n");
-//    theAOPtr->createViewObject()->
+    theAOPtr->createViewObject()->adjustObjectDrawingFromAO();
     QUndoCommand::redo();
 }
 
 
 void AbstractUndoCommand::undo(void)
 {
-    printf("AUC::undo\n");
-    // in the case of InsertUndoCommand, we won't have a ViewObject left
-    // when we get here ;-)
-//    if (theViewObjPtr) {
-//        theViewObjPtr->setNewGeometry(theOrigPos, theOrigWidth, theOrigHeight);
-//    }
+    theAOPtr->createViewObject()->adjustObjectDrawingFromAO();
     QUndoCommand::undo();
 }

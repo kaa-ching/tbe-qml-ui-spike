@@ -65,6 +65,7 @@ private:
     World* theWorldPtr;
     friend class World;
     friend class ViewItem;
+    friend class ResizeRotateMoveUndoCommand;
 };
 
 #endif // ABSTRACTOBJECT_H
