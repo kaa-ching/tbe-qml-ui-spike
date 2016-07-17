@@ -123,11 +123,11 @@ ViewItem::parentParamChanged()
     isColliding();
 
     //*** update AO with new position/width/height
-    theAOPtr->theCenter = Position(QPointF(parentItem()->x(),
-                                           parentItem()->y()),
+    theAOPtr->theCenter = Position(QPointF(parentItem()->x()+parentItem()->width()/2.,
+                                           parentItem()->y()+parentItem()->height()/2.),
                                    parentItem()->rotation());
 
-    Vector mySize(QPointF(parentItem()->width(),parentItem()->height()));
+    Vector mySize(QSizeF(parentItem()->width(), parentItem()->height()));
     theAOPtr->theWidth = mySize.dx;
     theAOPtr->theHeight= mySize.dy;
 }

@@ -46,19 +46,19 @@ void AbstractUndoCommand::commit(void)
 
 void AbstractUndoCommand::redo(void)
 {
-    // in the case of DeleteUndoCommand, we won't have a ViewObject left
-    // when we get here ;-)
-//    if (theViewObjPtr) {
-//        theViewObjPtr->setNewGeometry(theNewPos, theNewWidth, theNewHeight);
-//    }
+    printf("AUC::redo\n");
+//    theAOPtr->createViewObject()->
+    QUndoCommand::redo();
 }
 
 
 void AbstractUndoCommand::undo(void)
 {
+    printf("AUC::undo\n");
     // in the case of InsertUndoCommand, we won't have a ViewObject left
     // when we get here ;-)
 //    if (theViewObjPtr) {
 //        theViewObjPtr->setNewGeometry(theOrigPos, theOrigWidth, theOrigHeight);
 //    }
+    QUndoCommand::undo();
 }

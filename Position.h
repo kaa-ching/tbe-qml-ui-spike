@@ -65,6 +65,7 @@ public:
     Vector (void);
     Vector (qreal aDX, qreal aDY);
     Vector (const QPointF &aPoint);
+    Vector (const QSizeF &aSize);
     Vector (const b2Vec2 &aVec);
 
     /// Constructor ignores the angle from the Position.

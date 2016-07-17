@@ -29,7 +29,6 @@ I'll leave it up to you to judge if the above succeeded.
 Still to be implemented:
  * undo/redo
    * should take care of updating the AO and VI for move/resize/rotate
-     ---> NOTE: collision detection currently broken!!!
    * delete undo
  * another approach to adjusting rotation
  * rotation should be taken into account when calculating drag borders

@@ -102,6 +102,11 @@ Vector::Vector (const QPointF &aPoint)
     dy = ResolutionConversionSingleton::convertPixels2Y(aPoint.y());
 }
 
+Vector::Vector (const QSizeF &aSize)
+{
+    dx = ResolutionConversionSingleton::convertPixels2W(aSize.width());
+    dy = ResolutionConversionSingleton::convertPixels2H(aSize.height());
+}
 
 bool Vector::fromString(QString aString)
 {
