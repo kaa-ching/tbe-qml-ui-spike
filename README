@@ -31,7 +31,6 @@ I'll leave it up to you to judge if the above succeeded.
 Still to be implemented:
  * delete undo
  * another approach to adjusting rotation
- * rotation should be taken into account when calculating drag borders
  * polymorphism
    * butterfly, colamintbottle and penguin require animations
    * postit requires different clicking behavior

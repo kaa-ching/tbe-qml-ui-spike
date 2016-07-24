@@ -6,7 +6,6 @@ ResizeRotateMoveUndoItem {
     objectName: "theDecorator"
     property int minSize: 50
     property int rotationAngle: 0
-//    property Item theDecorated: null
 
     rotation: rotationAngle
 
@@ -41,10 +40,30 @@ ResizeRotateMoveUndoItem {
         source: "qrc:/images/ActionRotateLeft.svg"
         visible: theDecorated.isRotate === true;
 
+        property real origA : 0
+        property bool isFirstPress : true
+
         MouseArea {
             anchors.fill: parent
-            onClicked: {
-                rotationAngle -= 15
+            onPositionChanged: {
+                if (rotateLeft.isFirstPress) {
+                    var mpos = mapToItem(null, mouseX, mouseY);
+                    var dpos = mapToItem(null, theDecorator.x, theDecorator.y)
+                    rotateLeft.origA = -rotationAngle - theDecorator.vector2AngleDegrees(dpos.x - mpos.x, dpos.y - mpos.y);
+                    console.log("origA: " + rotateLeft.origA);
+                    rotateLeft.isFirstPress = false;
+                }
+                else {
+                    var mpos = mapToItem(null, mouseX, mouseY);
+                    var dpos = mapToItem(null, theDecorator.x, theDecorator.y);
+                    var newAngle = - rotateLeft.origA - theDecorator.vector2AngleDegrees(dpos.x - mpos.x, dpos.y - mpos.y);
+                    console.log("newA: " + newAngle);
+                    rotationAngle = Math.floor(newAngle/15. + 0.5)* 15.;
+                }
+            }
+            onReleased: {
+                rotateLeft.isFirstPress = true;
+                console.log("released")
             }
         }
     }
@@ -69,7 +88,7 @@ ResizeRotateMoveUndoItem {
     }
 
     Image {
-        id: rotateright
+        id: rotateRight
         width: RCS.handleWidth / theScale
         height: RCS.handleHeight / theScale
         anchors.horizontalCenter: parent.right
@@ -78,11 +97,35 @@ ResizeRotateMoveUndoItem {
         mirror: true
         visible: theDecorated.isRotate === true;
 
+        property real origA : 0
+        property bool isFirstPress : true
+
         MouseArea {
             anchors.fill: parent
             onClicked: {
                 rotationAngle += 15
             }
+            // *** TODO/FIXME: same code doesn't work for rotateRight...
+//            onPositionChanged: {
+//                if (rotateRight.isFirstPress) {
+//                    var mpos = mapToItem(null, mouseX, mouseY);
+//                    var dpos = mapToItem(null, theDecorator.x, theDecorator.y)
+//                    rotateRight.origA = -rotationAngle + theDecorator.vector2AngleDegrees(dpos.x - mpos.x, dpos.y - mpos.y);
+//                    //console.log("origA: " + rotateRight.origA);
+//                    rotateRight.isFirstPress = false;
+//                }
+//                else {
+//                    var mpos = mapToItem(null, mouseX, mouseY);
+//                    var dpos = mapToItem(null, theDecorator.x, theDecorator.y);
+//                    var newAngle = - rotateRight.origA + theDecorator.vector2AngleDegrees(dpos.x - mpos.x, dpos.y - mpos.y);
+//                    //console.log("newA: " + newAngle);
+//                    rotationAngle = Math.floor(newAngle/15. + 0.5)* 15.;
+//                }
+//            }
+//            onReleased: {
+//                rotateRight.isFirstPress = true;
+//                console.log("released")
+//            }
         }
     }
 

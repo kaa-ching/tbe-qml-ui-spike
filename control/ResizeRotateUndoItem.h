@@ -18,6 +18,8 @@ public:
     explicit ResizeRotateUndoItem(QQuickItem *parent = nullptr);
     virtual ~ResizeRotateUndoItem();
 
+    Q_INVOKABLE qreal vector2AngleDegrees(qreal x, qreal y);
+
 signals:
     void theDecoratedChanged();
 

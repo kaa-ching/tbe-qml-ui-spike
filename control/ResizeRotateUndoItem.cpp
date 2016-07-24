@@ -33,3 +33,11 @@ void ResizeRotateUndoItem::slot_parentChanged()
     assert (myVIPtr->theAOPtr != nullptr);
     theRRMUCPtr = dynamic_cast<ResizeRotateMoveUndoCommand*>(UndoSingleton::createUndoCommand(myVIPtr->theAOPtr, UndoSingleton::ACTION_RESIZEROTATE));
 }
+
+
+qreal ResizeRotateUndoItem::vector2AngleDegrees(qreal x, qreal y)
+{
+    Vector myVector( QSizeF(x, -y) );
+    printf("myVector: (%f,%f)\n", myVector.dx, myVector.dy);
+    return myVector.toAngle()* 180/PI;
+}
