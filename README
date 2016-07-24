@@ -31,6 +31,7 @@ I'll leave it up to you to judge if the above succeeded.
 Still to be implemented:
  * delete undo
  * another approach to adjusting rotation
+   - done for left rotation button, doesn't work (!!!) for the right button...
  * polymorphism
    * butterfly, colamintbottle and penguin require animations
    * postit requires different clicking behavior
