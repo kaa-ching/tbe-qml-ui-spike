@@ -37,7 +37,6 @@ void ResizeRotateUndoItem::slot_parentChanged()
 
 qreal ResizeRotateUndoItem::vector2AngleDegrees(qreal x, qreal y)
 {
-    Vector myVector( QSizeF(x, -y) );
-    printf("myVector: (%f,%f)\n", myVector.dx, myVector.dy);
+    Vector myVector( QSizeF(x, y) );
     return myVector.toAngle()* 180/PI;
 }
