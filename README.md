@@ -20,12 +20,12 @@ The goals of this "spike":
      * undo/redo
      * collision detection
      * coordinate conversions
- * integrate QQuickView into Qt's standard MainWindow layout
- * scale with size of window
- * coordinate conversions
-   * introduce DPI singleton that communicates with view
-   * enhance Position class
- * conditionals: only show horizontal arrows when hor resizing is allowed
+   * integrate QQuickView into Qt's standard MainWindow layout
+   * scale with size of window
+   * coordinate conversions
+     * introduce DPI singleton that communicates with view
+     * enhance Position class
+   * conditionals: only show horizontal arrows when hor resizing is allowed
  * collision detection, and how to visualize issues with that
    * collisions with the borders of the view
    * collisions with other objects (note that moves of objects are not taken 
