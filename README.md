@@ -1,6 +1,10 @@
+# TBE UI redesign spike
+
 This code was created to showcase the use of QML to make a new, rich UI for 
 the open source physics puzzle game "The Butterfly Effect"
     http://the-butterfly-effect.org .
+It is prototype code, meant to express and validate concepts. Integrating
+into the existing TBE project will probably take significant time.
 
 The goals of this "spike":
  * prototype a new, simpler UI
