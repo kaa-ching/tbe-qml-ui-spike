@@ -31,7 +31,6 @@ ResizeRotateMoveUndoItem {
     Binding { target: theDecorator; property: "y"; value: theDecorated.y }
 
     Image {
-        // TODO/FIXME: I want to redo this to work like PowerPoint: move mouse at will, but always rotate in 15 degree steps
         id: rotateLeft
         width: RCS.handleWidth / theScale
         height: RCS.handleHeight / theScale
@@ -85,41 +84,41 @@ ResizeRotateMoveUndoItem {
         }
     }
 
-    Image {
-        id: rotateRight
-        width: RCS.handleWidth / theScale
-        height: RCS.handleHeight / theScale
-        anchors.horizontalCenter: parent.right
-        anchors.verticalCenter: parent.top
-        source: "qrc:/images/ActionRotateLeft.svg"
-        mirror: true
-        visible: theDecorated.isRotate === true;
-
-        property real origA : 0
-        property bool isFirstPress : true
-
-        MouseArea {
-            anchors.fill: parent
-            onPositionChanged: {
-                if (rotateRight.isFirstPress) {
-                    var mpos = mapToItem(null, mouseY, mouseX);
-                    var dpos = mapToItem(null, theDecorator.y, theDecorator.x)
-                    rotateRight.origA = rotationAngle - theDecorator.vector2AngleDegrees(dpos.x - mpos.x, dpos.y - mpos.y);
-                    rotateRight.isFirstPress = false;
-                }
-                else {
-                    var mpos = mapToItem(null, mouseX, mouseY);
-                    var dpos = mapToItem(null, theDecorator.y, theDecorator.x);
-                    var newAngle = rotateRight.origA + theDecorator.vector2AngleDegrees(dpos.x - mpos.x, dpos.y - mpos.y);
-                    rotationAngle = Math.ceil(newAngle/15. - 0.5)* 15.;
-                }
-            }
-            onReleased: {
-                rotateRight.isFirstPress = true;
-                console.log("released")
-            }
-        }
-    }
+//     Image {
+//         id: rotateRight
+//         width: RCS.handleWidth / theScale
+//         height: RCS.handleHeight / theScale
+//         anchors.horizontalCenter: parent.right
+//         anchors.verticalCenter: parent.top
+//         source: "qrc:/images/ActionRotateLeft.svg"
+//         mirror: true
+//         visible: theDecorated.isRotate === true;
+// 
+//         property real origA : 0
+//         property bool isFirstPress : true
+// 
+//         MouseArea {
+//             anchors.fill: parent
+//             onPositionChanged: {
+//                 if (rotateRight.isFirstPress) {
+//                     var mpos = mapToItem(null, mouseY, mouseX);
+//                     var dpos = mapToItem(null, theDecorator.y, theDecorator.x)
+//                     rotateRight.origA = rotationAngle - theDecorator.vector2AngleDegrees(dpos.x - mpos.x, dpos.y - mpos.y);
+//                     rotateRight.isFirstPress = false;
+//                 }
+//                 else {
+//                     var mpos = mapToItem(null, mouseX, mouseY);
+//                     var dpos = mapToItem(null, theDecorator.y, theDecorator.x);
+//                     var newAngle = rotateRight.origA + theDecorator.vector2AngleDegrees(dpos.x - mpos.x, dpos.y - mpos.y);
+//                     rotationAngle = Math.ceil(newAngle/15. - 0.5)* 15.;
+//                 }
+//             }
+//             onReleased: {
+//                 rotateRight.isFirstPress = true;
+//                 console.log("released")
+//             }
+//         }
+//     }
 
     Image {
         id: left
