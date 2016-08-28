@@ -3,6 +3,10 @@ the open source physics puzzle game "The Butterfly Effect"
     http://the-butterfly-effect.org .
 
 The goals of this "spike":
+ * prototype a new, simpler UI
+   * using concepts closer to 'Powerpoint' and 'Inkscape'
+   * less clicking, more intuitive
+ * validate ease-of-use with a few users
  * learn how to use QT's QML
    * learn all about the new declarative approach
    * figure out the minimum Qt version needed
@@ -12,8 +16,6 @@ The goals of this "spike":
      * undo/redo
      * collision detection
      * coordinate conversions
- * prototype a new, simpler UI
- * validate ease-of-use with a few users
  * integrate QQuickView into Qt's standard MainWindow layout
  * scale with size of window
  * coordinate conversions
@@ -22,12 +24,16 @@ The goals of this "spike":
  * conditionals: only show horizontal arrows when hor resizing is allowed
  * collision detection, and how to visualize issues with that
    * collisions with the borders of the view
-   * collisions with other objects (note that moves of objects are not taken into account yet)
+   * collisions with other objects (note that moves of objects are not taken 
+     into account yet)
  * undo/redo
    * should take care of updating the AO and VI for move/resize/rotate
- * another approach to adjusting rotation
 
 I'll leave it up to you to judge if the above succeeded.
+
+Note that there's another architecture spike, 
+https://github.com/kaa-ching/tbe-qml-toolbox-spike , showcasing the new toolbox
+and how we want to improve gameplay in the toolbox.
 
 Still to be implemented:
  * delete undo
@@ -35,11 +41,8 @@ Still to be implemented:
    * butterfly, colamintbottle and penguin require animations
    * postit requires different clicking behavior
    * detonatorbox has a handle that needs to be addressed
- * prototype the "toolbox"
- * drag/drop from the "toolbox"
-   * add "insert undo"
  * tooltips
-
+ * segfault when exiting with something selected
 
 kaa-ching, a.k.a. Klaas van Gend
 
